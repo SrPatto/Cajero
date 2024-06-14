@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="700.0" style="-fx-background-color: #22577A;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cajero.UsuarioMenuController">
+   <top>
+      <AnchorPane prefHeight="120.0" prefWidth="700.0" style="-fx-background-color: #FFFFFF;" BorderPane.alignment="CENTER">
+         <children>
+            <Text fill="#22577a" layoutX="271.0" layoutY="50.0" strokeType="OUTSIDE" strokeWidth="0.0" text="¡Hola usuario!">
+               <font>
+                  <Font name="System Bold" size="24.0" />
+               </font>
+            </Text>
+            <Text fill="#22577a" layoutX="275.0" layoutY="92.0" strokeType="OUTSIDE" strokeWidth="0.0" text="¿Qué deseas hacer hoy?">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Text>
+            <Button fx:id="btnLogout" cancelButton="true" layoutX="656.0" layoutY="14.0" mnemonicParsing="false" onAction="#cerrarSesion" text="X" textAlignment="CENTER" textFill="#22577a">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Button>
+         </children>
+      </AnchorPane>
+   </top>
+   <left>
+      <AnchorPane prefHeight="200.0" prefWidth="700.0" style="-fx-background-color: #22577A;" BorderPane.alignment="CENTER">
+         <children>
+            <Button layoutX="480.0" layoutY="197.0" mnemonicParsing="false" prefWidth="150.0" style="-fx-background-color: #ffffff;" text="Transferir" textFill="#22577a">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Button>
+            <Button layoutX="275.0" layoutY="197.0" mnemonicParsing="false" prefWidth="150.0" style="-fx-background-color: #ffffff;" text="Retirar" textFill="#22577a">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Button>
+            <Button layoutX="72.0" layoutY="197.0" mnemonicParsing="false" prefWidth="150.0" style="-fx-background-color: #ffffff;" text="Depositar" textFill="#22577a">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Button>
+            <Text fill="WHITE" layoutX="265.0" layoutY="51.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tu saldo actual es ...">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Text>
+            <TextField alignment="CENTER" layoutX="260.0" layoutY="88.0" prefWidth="180.0" promptText="saldo " />
+            <ImageView fitHeight="34.0" fitWidth="24.0" layoutX="222.0" layoutY="89.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../img/dolar.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="68.0" fitWidth="66.0" layoutX="317.0" layoutY="257.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../img/retiro-de-efectivo.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="68.0" fitWidth="66.0" layoutX="114.0" layoutY="257.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../img/depositar.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="68.0" fitWidth="66.0" layoutX="522.0" layoutY="257.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../img/transferir-dinero.png" />
+               </image>
+            </ImageView>
+         </children>
+      </AnchorPane>
+   </left>
+</BorderPane>

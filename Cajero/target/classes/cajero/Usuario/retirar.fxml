@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+   <top>
+      <AnchorPane prefHeight="120.0" prefWidth="500.0" BorderPane.alignment="CENTER">
+         <children>
+            <Text fill="#22577a" layoutX="339.0" layoutY="43.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Retirar">
+               <font>
+                  <Font name="System Bold" size="24.0" />
+               </font>
+            </Text>
+            <Text fill="#22577a" layoutX="268.0" layoutY="75.0" strokeType="OUTSIDE" strokeWidth="0.0" text="¿Cuánto diniero deseas retirar hoy?">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Text>
+            <Button layoutX="658.0" layoutY="14.0" mnemonicParsing="false" text="X" textFill="#22577a">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Button>
+         </children>
+      </AnchorPane>
+   </top>
+   <left>
+      <AnchorPane prefHeight="380.0" prefWidth="700.0" style="-fx-background-color: #22577A;" BorderPane.alignment="CENTER">
+         <children>
+            <Button layoutX="14.0" layoutY="336.0" mnemonicParsing="false" text="&lt;" textFill="#22577a">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Button>
+            <Text fill="WHITE" layoutX="178.0" layoutY="85.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tu saldo actual es...">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Text>
+            <TextField layoutX="160.0" layoutY="117.0" prefWidth="200.0" promptText="saldo actual" />
+            <ImageView fitHeight="20.0" fitWidth="20.0" layoutX="130.0" layoutY="120.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../img/dolar.png" />
+               </image>
+            </ImageView>
+            <Text fill="WHITE" layoutX="191.0" layoutY="210.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cantida a retirar">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Text>
+            <TextField layoutX="160.0" layoutY="238.0" prefWidth="200.0" promptText="cantidad a retirar" />
+            <ImageView fitHeight="20.0" fitWidth="20.0" layoutX="130.0" layoutY="241.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../img/dolar.png" />
+               </image>
+            </ImageView>
+            <Button layoutX="529.0" layoutY="178.0" mnemonicParsing="false" text="Retirar" textFill="#22577a">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Button>
+         </children>
+      </AnchorPane>
+   </left>
+</BorderPane>
