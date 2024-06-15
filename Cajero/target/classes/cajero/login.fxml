@@ -32,7 +32,7 @@
          <children>
             <TextField fx:id="txtNumCuenta" layoutX="79.0" layoutY="223.0" prefWidth="200.0" promptText="No. Cuenta" style="-fx-background-color: transparent; -fx-border-width: 0px 0px 2px 0px; -fx-border-color: #22577A;" />
             <PasswordField fx:id="txtContrasenia" layoutX="79.0" layoutY="286.0" prefWidth="200.0" promptText="password" style="-fx-background-color: transparent; -fx-border-width: 0px 0px 2px 0px; -fx-border-color: #22577A;" />
-            <Button fx:id="btnLogin" layoutX="120.0" layoutY="374.0" mnemonicParsing="false" onAction="#login" prefHeight="29.0" prefWidth="118.0" style="-fx-background-color: #22577A;" text="Iniciar sesión" textFill="WHITE" />
+            <Button fx:id="btn_Login" layoutX="120.0" layoutY="374.0" mnemonicParsing="false" onAction="#login" prefHeight="29.0" prefWidth="118.0" style="-fx-background-color: #22577A;" text="Iniciar sesión" textFill="WHITE" />
             <Text fill="#22577a" layoutX="108.0" layoutY="175.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Iniciar sesión">
                <font>
                   <Font name="System Bold" size="22.0" />

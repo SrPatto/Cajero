@@ -1,15 +1,3 @@
-/*package cajero;
-
-import java.io.IOException;
-import javafx.fxml.FXML;
-
-public class Login {
-
-    @FXML
-    private void switchToSecondary() throws IOException {
-        App.setRoot("secondary");
-    }
-}*/
 package cajero;
 
 import java.io.IOException;
@@ -22,7 +10,7 @@ import javafx.stage.Stage;
 import javafx.scene.control.TextField;
 
 public class Login {
-    private Stage stagep;
+    private Stage stageLogin;
     
     @FXML
     private TextField txtNumCuenta;
@@ -41,16 +29,22 @@ public class Login {
         
         controller.init(txtNumCuenta.getText(), txtContrasenia.getText(), stage, this);
         stage.show();
-        stagep.close(); 
+        stageLogin.close(); 
+    }
+    void limpiarCamposLogin() {
+        txtNumCuenta.clear();
+        txtContrasenia.clear();
     }
 
     void setStage(Stage stage) {
-        stagep = stage;
+        stageLogin = stage;
     }
 
     void show() {
-        stagep.show();
+        stageLogin.show();
     }
+
+    
 }
 
 

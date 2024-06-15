@@ -1,26 +1,47 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/javafx/FXMLController.java to edit this template
- */
 package cajero;
 
-import java.net.URL;
-import java.util.ResourceBundle;
-import javafx.fxml.Initializable;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
-/**
- * FXML Controller class
- *
- * @author atrm_
- */
-public class RetirarController implements Initializable {
+public class RetirarController {
+    private UsuarioMenuController usuarioMenuController;
+    private Stage stageBackToMenu;
+    private Stage stageRetirar;
 
-    /**
-     * Initializes the controller class.
-     */
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
-        // TODO
-    }    
+    @FXML
+    private Button btn_BackToUsuarioMenu;
+
+    @FXML
+    private Button btn_Retirar;
+
+    @FXML
+    private TextField txtRetirar;
+
+    @FXML
+    private TextField txtSaldo;
     
+        @FXML
+    void BackToUsuarioMenu(ActionEvent event) {
+        stageRetirar.close(); 
+        usuarioMenuController.show(); 
+    }
+    
+    public void init(UsuarioMenuController usuarioMenuController, Stage stageBackToMenu) {
+        this.usuarioMenuController = usuarioMenuController;
+        this.stageBackToMenu = stageBackToMenu;
+    }
+
+    public void setStage(Stage stage) {
+        this.stageRetirar = stage;
+    }
+
+
+    @FXML
+    void Retirar(ActionEvent event) {
+        
+    }
+
 }

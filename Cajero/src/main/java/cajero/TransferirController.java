@@ -1,26 +1,48 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/javafx/FXMLController.java to edit this template
- */
 package cajero;
 
-import java.net.URL;
-import java.util.ResourceBundle;
-import javafx.fxml.Initializable;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
-/**
- * FXML Controller class
- *
- * @author atrm_
- */
-public class TransferirController implements Initializable {
-
-    /**
-     * Initializes the controller class.
-     */
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
-        // TODO
-    }    
+public class TransferirController {
     
+    private UsuarioMenuController usuarioMenuController;
+    private Stage stageBackToMenu;
+    private Stage stageTransferir;
+
+    @FXML
+    private Button btn_BackToUsuarioMenu;
+
+    @FXML
+    private Button btn_Transferir;
+
+    @FXML
+    private TextField txtNumCuenta;
+
+    @FXML
+    private TextField txtTransferencia;
+
+    @FXML
+    void BackToUsuarioMenu(ActionEvent event) {
+        stageTransferir.close(); 
+        usuarioMenuController.show(); 
+    }
+
+    void init(UsuarioMenuController usuarioMenuController, Stage stageBackToMenu) {
+        this.usuarioMenuController = usuarioMenuController;
+        this.stageBackToMenu = stageBackToMenu;
+        
+    }
+
+    void setStage(Stage stage) {
+        this.stageTransferir = stage;
+    }
+    
+    @FXML
+    void Transferir(ActionEvent event) {
+
+    }
+
 }

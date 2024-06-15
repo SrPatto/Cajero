@@ -23,7 +23,7 @@
                   <Font size="14.0" />
                </font>
             </Text>
-            <Button fx:id="btnLogout" cancelButton="true" layoutX="656.0" layoutY="14.0" mnemonicParsing="false" onAction="#cerrarSesion" text="X" textAlignment="CENTER" textFill="#22577a">
+            <Button fx:id="btn_Logout" cancelButton="true" layoutX="656.0" layoutY="14.0" mnemonicParsing="false" onAction="#cerrarSesion" text="X" textAlignment="CENTER" textFill="#22577a">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
@@ -34,17 +34,17 @@
    <left>
       <AnchorPane prefHeight="200.0" prefWidth="700.0" style="-fx-background-color: #22577A;" BorderPane.alignment="CENTER">
          <children>
-            <Button layoutX="480.0" layoutY="197.0" mnemonicParsing="false" prefWidth="150.0" style="-fx-background-color: #ffffff;" text="Transferir" textFill="#22577a">
+            <Button fx:id="btn_TransferirToVentana" layoutX="480.0" layoutY="197.0" mnemonicParsing="false" onAction="#transferirToVentana" prefWidth="150.0" style="-fx-background-color: #ffffff;" text="Transferir" textFill="#22577a">
                <font>
                   <Font size="18.0" />
                </font>
             </Button>
-            <Button layoutX="275.0" layoutY="197.0" mnemonicParsing="false" prefWidth="150.0" style="-fx-background-color: #ffffff;" text="Retirar" textFill="#22577a">
+            <Button fx:id="btn_RetirarToVentana" layoutX="275.0" layoutY="197.0" mnemonicParsing="false" onAction="#retirarToVentana" prefWidth="150.0" style="-fx-background-color: #ffffff;" text="Retirar" textFill="#22577a">
                <font>
                   <Font size="18.0" />
                </font>
             </Button>
-            <Button layoutX="72.0" layoutY="197.0" mnemonicParsing="false" prefWidth="150.0" style="-fx-background-color: #ffffff;" text="Depositar" textFill="#22577a">
+            <Button fx:id="btn_DepositarToVentana" layoutX="72.0" layoutY="197.0" mnemonicParsing="false" onAction="#depositarToVentana" prefWidth="150.0" style="-fx-background-color: #ffffff;" text="Depositar" textFill="#22577a">
                <font>
                   <Font size="18.0" />
                </font>

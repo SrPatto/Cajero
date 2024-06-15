@@ -1,26 +1,51 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/javafx/FXMLController.java to edit this template
- */
 package cajero;
 
-import java.net.URL;
-import java.util.ResourceBundle;
-import javafx.fxml.Initializable;
+import java.io.IOException;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
-/**
- * FXML Controller class
- *
- * @author atrm_
- */
-public class DepositarController implements Initializable {
-
-    /**
-     * Initializes the controller class.
-     */
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
-        // TODO
-    }    
+public class DepositarController {
     
+    private UsuarioMenuController usuarioMenuController;
+    private Stage stageBackToMenu;
+    private Stage stageDepositar;
+    
+    @FXML
+    private Button btn_BackToUsuarioMenu;
+
+    @FXML
+    private Button btn_Depositar;
+
+    @FXML
+    private TextField txtDeposito;
+
+    @FXML
+    private TextField txtSaldo;
+
+    @FXML
+    void Depositar(ActionEvent event) {
+       
+    }
+    
+    public void init(UsuarioMenuController usuarioMenuController, Stage stageBackToMenu) {
+        this.usuarioMenuController = usuarioMenuController;
+        this.stageBackToMenu = stageBackToMenu;
+    }
+
+    public void setStage(Stage stage) {
+        this.stageDepositar = stage;
+    }
+
+    @FXML
+    void backToUsuarioMenu(ActionEvent event) throws IOException {
+        stageDepositar.close(); 
+        usuarioMenuController.show(); 
+    }
+
 }

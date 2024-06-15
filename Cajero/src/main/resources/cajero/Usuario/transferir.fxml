@@ -9,11 +9,11 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cajero.TransferirController">
    <top>
       <AnchorPane prefHeight="120.0" prefWidth="700.0" BorderPane.alignment="CENTER">
          <children>
-            <Text fill="#22577a" layoutX="274.0" layoutY="51.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tranferencias">
+            <Text fill="#22577a" layoutX="274.0" layoutY="53.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tranferencias">
                <font>
                   <Font name="System Bold" size="24.0" />
                </font>
@@ -23,11 +23,6 @@
                   <Font size="14.0" />
                </font>
             </Text>
-            <Button layoutX="658.0" layoutY="14.0" mnemonicParsing="false" text="X" textFill="#22577a">
-               <font>
-                  <Font name="System Bold" size="14.0" />
-               </font>
-            </Button>
          </children>
       </AnchorPane>
    </top>
@@ -44,11 +39,11 @@
                   <Font size="14.0" />
                </font>
             </Text>
-            <TextField layoutX="111.0" layoutY="81.0" promptText="No. Cuenta" />
-            <TextField layoutX="111.0" layoutY="177.0" promptText="\$" />
-            <Button layoutX="136.0" layoutY="250.0" mnemonicParsing="false" prefWidth="100.0" text="Transferir" textFill="#22577a">
+            <TextField fx:id="txtNumCuenta" layoutX="111.0" layoutY="81.0" promptText="No. Cuenta" />
+            <TextField fx:id="txtTransferencia" layoutX="111.0" layoutY="177.0" promptText="\$" />
+            <Button fx:id="btn_Transferir" layoutX="126.0" layoutY="250.0" mnemonicParsing="false" onAction="#Transferir" prefHeight="39.0" prefWidth="119.0" text="Transferir" textFill="#22577a">
                <font>
-                  <Font name="System Bold" size="12.0" />
+                  <Font name="System Bold" size="18.0" />
                </font></Button>
          </children>
       </AnchorPane>
@@ -67,7 +62,7 @@
                 <TableColumn prefWidth="100.0" text="No. Cuenta" />
               </columns>
             </TableView>
-            <Button layoutX="14.0" layoutY="341.0" mnemonicParsing="false" text="&lt;" textFill="#22577a">
+            <Button fx:id="btn_BackToUsuarioMenu" layoutX="14.0" layoutY="341.0" mnemonicParsing="false" onAction="#BackToUsuarioMenu" text="&lt;" textFill="#22577a">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>

@@ -9,21 +9,16 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cajero.DepositarController">
    <top>
       <AnchorPane prefHeight="120.0" prefWidth="700.0" BorderPane.alignment="CENTER">
          <children>
-            <Text fill="#22577a" layoutX="339.0" layoutY="45.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Depositar">
+            <Text fill="#22577a" layoutX="295.0" layoutY="53.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Depositar">
                <font>
                   <Font name="System Bold" size="24.0" />
                </font>
             </Text>
-            <Button layoutX="658.0" layoutY="14.0" mnemonicParsing="false" text="X" textFill="#22577a">
-               <font>
-                  <Font name="System Bold" size="14.0" />
-               </font>
-            </Button>
-            <Text fill="#22577a" layoutX="274.0" layoutY="89.0" strokeType="OUTSIDE" strokeWidth="0.0" text="¿Cuánto dinero quieres depositar hoy?">
+            <Text fill="#22577a" layoutX="230.0" layoutY="90.0" strokeType="OUTSIDE" strokeWidth="0.0" text="¿Cuánto dinero quieres depositar hoy?">
                <font>
                   <Font size="14.0" />
                </font>
@@ -38,7 +33,7 @@
                   <Font name="System Bold" size="18.0" />
                </font>
             </Text>
-            <TextField layoutX="174.0" layoutY="113.0" prefWidth="200.0" promptText="saldo actual" />
+            <TextField fx:id="txtSaldo" layoutX="174.0" layoutY="113.0" prefWidth="200.0" promptText="saldo actual" />
             <ImageView fitHeight="20.0" fitWidth="20.0" layoutX="145.0" layoutY="116.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../img/dolar.png" />
@@ -49,18 +44,18 @@
                   <Font name="System Bold" size="18.0" />
                </font>
             </Text>
-            <TextField layoutX="174.0" layoutY="250.0" prefWidth="200.0" promptText="cantidad a depositar" />
+            <TextField fx:id="txtDeposito" layoutX="174.0" layoutY="250.0" prefWidth="200.0" promptText="cantidad a depositar" />
             <ImageView fitHeight="20.0" fitWidth="20.0" layoutX="145.0" layoutY="253.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../img/dolar.png" />
                </image>
             </ImageView>
-            <Button layoutX="14.0" layoutY="336.0" mnemonicParsing="false" text="&lt;" textFill="#22577a">
+            <Button fx:id="btn_BackToUsuarioMenu" layoutX="14.0" layoutY="336.0" mnemonicParsing="false" onAction="#backToUsuarioMenu" text="&lt;" textFill="#22577a">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
             </Button>
-            <Button layoutX="521.0" layoutY="150.0" mnemonicParsing="false" text="Depositar" textFill="#22577a">
+            <Button fx:id="btn_Depositar" layoutX="521.0" layoutY="150.0" mnemonicParsing="false" onAction="#Depositar" text="Depositar" textFill="#22577a">
                <font>
                   <Font name="System Bold" size="18.0" />
                </font>
