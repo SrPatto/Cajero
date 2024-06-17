@@ -5,7 +5,9 @@ cajero\AdminAvisoEliminarController.class
 cajero\Login.class
 module-info.class
 cajero\AdminAgregarController.class
+cajero\LoginModel.class
 cajero\TransferirController.class
+cajero\SqliteConnection.class
 cajero\RetirarAvisoController.class
 cajero\App.class
 cajero\AdminUsuariosController.class
