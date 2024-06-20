@@ -13,8 +13,8 @@ public class SqliteConnection {
         try {
             Class.forName("org.sqlite.JDBC");
             return DriverManager.getConnection("jdbc:sqlite:" + DB);
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (Exception ex) {
+            ex.printStackTrace();
             return null;
         }
     }
@@ -24,7 +24,7 @@ public class SqliteConnection {
                 "id INTEGER PRIMARY KEY AUTOINCREMENT," +
                 "num_cuenta TEXT NOT NULL UNIQUE," +
                 "password TEXT NOT NULL," +
-                "rol TEXT NOT NULL CHECK (role IN ('True', 'False'))" + ");";
+                "admin TEXT NOT NULL CHECK (admin IN ('True', 'False'))" + ");";
 
         String crearTablaCuentas = "CREATE TABLE IF NOT EXISTS Cuentas (" +
                 "id INTEGER PRIMARY KEY AUTOINCREMENT," +
@@ -56,7 +56,7 @@ public class SqliteConnection {
 
             if (rs.next() && rs.getInt("count") == 0) {
                 // Insertar usuarios Iniciales
-                String insertarUsuarioQuery = "INSERT INTO Usuarios (num_cuenta, password, cliente) VALUES (?, ?, ?)";
+                String insertarUsuarioQuery = "INSERT INTO Usuarios (num_cuenta, password, admin) VALUES (?, ?, ?)";
                 String insertarCuentaQuery = "INSERT INTO Cuentas (num_cuenta, nombre, dinero, id_usuario) VALUES (?, ?, ?, ?)";
                 
                 try (PreparedStatement pstmtUsuario = conn.prepareStatement(insertarUsuarioQuery, Statement.RETURN_GENERATED_KEYS);
@@ -65,7 +65,7 @@ public class SqliteConnection {
                     // Insertar Datos de admin
                     pstmtUsuario.setString(1, "7070707070"); // Establece parametros en las sentencias preparadas (PreparedStatement) para insertar datos en la tabla uuarios.
                     pstmtUsuario.setString(2, "123");
-                    pstmtUsuario.setString(3, "False");
+                    pstmtUsuario.setString(3, "True");
                     pstmtUsuario.executeUpdate();
                     ResultSet generatedKeys = pstmtUsuario.getGeneratedKeys();
                     generatedKeys.next();
@@ -74,7 +74,7 @@ public class SqliteConnection {
                     // Insrtar Datos de usuario 1
                     pstmtUsuario.setString(1, "1010101010");
                     pstmtUsuario.setString(2, "1234");
-                    pstmtUsuario.setString(3, "True");
+                    pstmtUsuario.setString(3, "False");
                     pstmtUsuario.executeUpdate();
                     generatedKeys = pstmtUsuario.getGeneratedKeys();
                     generatedKeys.next();
@@ -83,7 +83,7 @@ public class SqliteConnection {
                     // Insertar Datos de usuario 2
                     pstmtUsuario.setString(1, "3030303030");
                     pstmtUsuario.setString(2, "12345");
-                    pstmtUsuario.setString(3, "True");
+                    pstmtUsuario.setString(3, "False");
                     pstmtUsuario.executeUpdate();
                     generatedKeys = pstmtUsuario.getGeneratedKeys();
                     generatedKeys.next();
