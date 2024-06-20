@@ -7,20 +7,22 @@ package cajero;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.Initializable;
+import javafx.stage.Stage;
 
-/**
- * FXML Controller class
- *
- * @author atrm_
- */
+
 public class AdminUsuariosController implements Initializable {
 
-    /**
-     * Initializes the controller class.
-     */
+    private Stage stageAdminUsuarios;
+    private Login loginController;
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+    }
+    
+    void init(String txtNumCuenta, String txtContrasenia, Stage stage, Login login) {
+        this.loginController = login;
+        this.stageAdminUsuarios = stage;
     }    
     
 }
