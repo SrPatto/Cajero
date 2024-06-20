@@ -11,23 +11,10 @@ public class RetirarController {
     private Stage stageBackToMenu;
     private Stage stageRetirar;
 
-    @FXML
-    private Button btn_BackToUsuarioMenu;
-
-    @FXML
-    private Button btn_Retirar;
-
-    @FXML
-    private TextField txtRetirar;
-
-    @FXML
-    private TextField txtSaldo;
-    
-        @FXML
-    void BackToUsuarioMenu(ActionEvent event) {
-        stageRetirar.close(); 
-        usuarioMenuController.show(); 
-    }
+    @FXML private Button btn_BackToUsuarioMenu;
+    @FXML private Button btn_Retirar;
+    @FXML private TextField txtRetirar;
+    @FXML private TextField txtSaldo;
     
     public void init(UsuarioMenuController usuarioMenuController, Stage stageBackToMenu) {
         this.usuarioMenuController = usuarioMenuController;
@@ -37,8 +24,13 @@ public class RetirarController {
     public void setStage(Stage stage) {
         this.stageRetirar = stage;
     }
-
-
+    
+    @FXML
+    void BackToUsuarioMenu(ActionEvent event) {
+        stageRetirar.close(); 
+        usuarioMenuController.show(); 
+    }
+    
     @FXML
     void Retirar(ActionEvent event) {
         

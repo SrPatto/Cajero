@@ -98,9 +98,5 @@ public class Login implements Initializable {
     void show() {
         stageLogin.show();
     }
-
-
     
 }
-
-

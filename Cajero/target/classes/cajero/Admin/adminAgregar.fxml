@@ -9,8 +9,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="350.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="350.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cajero.AdminAgregarController">
    <top>
       <AnchorPane prefHeight="120.0" prefWidth="350.0" style="-fx-background-color: #22577A;" BorderPane.alignment="CENTER">
          <children>
@@ -19,7 +18,7 @@
                   <Font name="System Bold" size="24.0" />
                </font>
             </Text>
-            <Button layoutX="312.0" layoutY="14.0" mnemonicParsing="false" text="X" textFill="#22577a">
+            <Button fx:id="btn_CerrarVentanaAgregar" layoutX="312.0" layoutY="14.0" mnemonicParsing="false" onAction="#cerrarVentanaAgregar" text="X" textFill="#22577a">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
@@ -45,9 +44,9 @@
                   <Font name="System Bold" size="18.0" />
                </font>
             </Text>
-            <TextField layoutX="89.0" layoutY="50.0" prefWidth="200.0" promptText="Nombre" style="-fx-background-color: transparent; -fx-border-color: #22577A; -fx-border-width: 0px 0px 3px 0px;" />
-            <TextField layoutX="90.0" layoutY="137.0" prefWidth="200.0" promptText="No. Cuenta" style="-fx-background-color: transparent; -fx-border-color: #22577A; -fx-border-width: 0px 0px 3px 0px;" />
-            <TextField layoutX="89.0" layoutY="231.0" prefWidth="200.0" promptText="No. Cuenta" style="-fx-background-color: transparent; -fx-border-color: #22577A; -fx-border-width: 0px 0px 3px 0px;" />
+            <TextField fx:id="txtNombreUsuario" layoutX="89.0" layoutY="50.0" prefWidth="200.0" promptText="Nombre" style="-fx-background-color: transparent; -fx-border-color: #22577A; -fx-border-width: 0px 0px 3px 0px;" />
+            <TextField fx:id="txtNumCuenta" layoutX="90.0" layoutY="137.0" prefWidth="200.0" promptText="No. Cuenta" style="-fx-background-color: transparent; -fx-border-color: #22577A; -fx-border-width: 0px 0px 3px 0px;" />
+            <TextField fx:id="txtSaldo" layoutX="89.0" layoutY="231.0" prefWidth="200.0" promptText="No. Cuenta" style="-fx-background-color: transparent; -fx-border-color: #22577A; -fx-border-width: 0px 0px 3px 0px;" />
             <ImageView fitHeight="20.0" fitWidth="20.0" layoutX="61.0" layoutY="54.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../img/usuario.png" />
@@ -63,7 +62,7 @@
                   <Image url="@../../img/dolar2.png" />
                </image>
             </ImageView>
-            <Button layoutX="125.0" layoutY="296.0" mnemonicParsing="false" prefWidth="100.0" style="-fx-background-color: #22577A;" text="Agregar" textFill="WHITE">
+            <Button fx:id="btn_AgregarUsuario" layoutX="125.0" layoutY="296.0" mnemonicParsing="false" onAction="#agregarUsuario" prefWidth="100.0" style="-fx-background-color: #22577A;" text="Agregar" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>

@@ -16,22 +16,10 @@ public class DepositarController {
     private Stage stageBackToMenu;
     private Stage stageDepositar;
     
-    @FXML
-    private Button btn_BackToUsuarioMenu;
-
-    @FXML
-    private Button btn_Depositar;
-
-    @FXML
-    private TextField txtDeposito;
-
-    @FXML
-    private TextField txtSaldo;
-
-    @FXML
-    void Depositar(ActionEvent event) {
-       
-    }
+    @FXML private Button btn_BackToUsuarioMenu;
+    @FXML private Button btn_Depositar;
+    @FXML private TextField txtDeposito;
+    @FXML private TextField txtSaldo;
     
     public void init(UsuarioMenuController usuarioMenuController, Stage stageBackToMenu) {
         this.usuarioMenuController = usuarioMenuController;
@@ -41,11 +29,15 @@ public class DepositarController {
     public void setStage(Stage stage) {
         this.stageDepositar = stage;
     }
-
+    
     @FXML
     void backToUsuarioMenu(ActionEvent event) throws IOException {
         stageDepositar.close(); 
         usuarioMenuController.show(); 
     }
-
+    
+    @FXML
+    void Depositar(ActionEvent event) {
+       
+    }
 }

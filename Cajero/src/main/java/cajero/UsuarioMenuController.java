@@ -7,6 +7,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 public class UsuarioMenuController {
@@ -14,17 +15,11 @@ public class UsuarioMenuController {
     private Stage stageMenu;
     private Login loginController;
     
-    @FXML
-    private Button btn_DepositarToVentana;
-
-    @FXML
-    private Button btn_Logout;
-
-    @FXML
-    private Button btn_RetirarToVentana;
-
-    @FXML
-    private Button btn_TransferirToVentana;
+    @FXML private Button btn_Logout;
+    @FXML private Button btn_DepositarToVentana;
+    @FXML private Button btn_RetirarToVentana;
+    @FXML private Button btn_TransferirToVentana;
+    @FXML private TextField txtSaldo;
 
     @FXML
     void cerrarSesion(ActionEvent event) {

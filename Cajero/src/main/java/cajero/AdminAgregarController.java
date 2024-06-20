@@ -1,26 +1,39 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/javafx/FXMLController.java to edit this template
- */
 package cajero;
 
-import java.net.URL;
-import java.util.ResourceBundle;
-import javafx.fxml.Initializable;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
-/**
- * FXML Controller class
- *
- * @author atrm_
- */
-public class AdminAgregarController implements Initializable {
+public class AdminAgregarController {
 
-    /**
-     * Initializes the controller class.
-     */
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
-        // TODO
-    }    
+    @FXML private Button btn_AgregarUsuario;
+    @FXML private Button btn_CerrarVentanaAgregar;
+    @FXML private TextField txtNombreUsuario;
+    @FXML private TextField txtNumCuenta;
+    @FXML private TextField txtSaldo;
+
+    private AdminUsuariosController adminUsuariosController;
+    private Stage stageAgregarUsuario;
+
+    void init(AdminUsuariosController adminUsuariosController, Stage stageAdminUsuarios) {
+        this.adminUsuariosController = adminUsuariosController;
+        this.stageAgregarUsuario = stageAdminUsuarios;
+    }
+
     
+    void setStage(Stage stageAgregarUsuario) {
+        this.stageAgregarUsuario = stageAgregarUsuario;
+    }
+
+    @FXML
+    void agregarUsuario(ActionEvent event) {
+        
+    }
+
+    @FXML
+    void cerrarVentanaAgregar(ActionEvent event) {
+        stageAgregarUsuario.close();  
+    }
 }

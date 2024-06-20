@@ -12,24 +12,11 @@ public class TransferirController {
     private Stage stageBackToMenu;
     private Stage stageTransferir;
 
-    @FXML
-    private Button btn_BackToUsuarioMenu;
-
-    @FXML
-    private Button btn_Transferir;
-
-    @FXML
-    private TextField txtNumCuenta;
-
-    @FXML
-    private TextField txtTransferencia;
-
-    @FXML
-    void BackToUsuarioMenu(ActionEvent event) {
-        stageTransferir.close(); 
-        usuarioMenuController.show(); 
-    }
-
+    @FXML private Button btn_BackToUsuarioMenu;
+    @FXML private Button btn_Transferir;
+    @FXML private TextField txtNumCuenta;
+    @FXML private TextField txtTransferencia;
+    
     void init(UsuarioMenuController usuarioMenuController, Stage stageBackToMenu) {
         this.usuarioMenuController = usuarioMenuController;
         this.stageBackToMenu = stageBackToMenu;
@@ -39,7 +26,13 @@ public class TransferirController {
     void setStage(Stage stage) {
         this.stageTransferir = stage;
     }
-    
+
+    @FXML
+    void BackToUsuarioMenu(ActionEvent event) {
+        stageTransferir.close(); 
+        usuarioMenuController.show(); 
+    }
+
     @FXML
     void Transferir(ActionEvent event) {
 
