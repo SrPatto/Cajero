@@ -1,5 +1,6 @@
 package cajero;
 
+import static cajero.SqliteConnection.configuraDB;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -22,6 +23,7 @@ public class App extends Application {
        Login controller = loader.getController();
        controller.setStage(stage);
        stage.show();
+       configuraDB();
     }
 
     public static void main(String[] args) {
