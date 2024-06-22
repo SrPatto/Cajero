@@ -47,6 +47,7 @@ public class SqliteConnection {
             System.out.println(ex.getMessage());
         }
     }
+
     private static void insertarDatosIni(Connection conn) {
         String checkUsersQuery = "SELECT COUNT(*) AS count FROM Usuarios";
         try (Statement stmt = conn.createStatement();
@@ -62,14 +63,15 @@ public class SqliteConnection {
                     // Insertar Datos de admin
                     pstmtUsuario.setString(1, "7070707070");
                     pstmtUsuario.setString(2, "123");
-                    pstmtUsuario.setBoolean(3, true); // Changed from "True" to true
+                    pstmtUsuario.setBoolean(3, true);
                     pstmtUsuario.executeUpdate();
                     ResultSet generatedKeys = pstmtUsuario.getGeneratedKeys();
                     if (generatedKeys.next()) {
                         int adminId = generatedKeys.getInt(1);
+                        System.out.println("Admin ID: " + adminId);
 
                         // Insertar datos de Cuenta Admin
-                        pstmtCuenta.setString(1, "7070707070"); 
+                        pstmtCuenta.setString(1, "7070707070");
                         pstmtCuenta.setString(2, "Aurora Mendez Juarez");
                         pstmtCuenta.setDouble(3, 9006.0);
                         pstmtCuenta.setInt(4, adminId);
@@ -84,6 +86,7 @@ public class SqliteConnection {
                     generatedKeys = pstmtUsuario.getGeneratedKeys();
                     if (generatedKeys.next()) {
                         int user1Id = generatedKeys.getInt(1);
+                        System.out.println("User1 ID: " + user1Id);
 
                         // Insertar datos de Cuenta 1
                         pstmtCuenta.setString(1, "1010101010");
@@ -92,9 +95,25 @@ public class SqliteConnection {
                         pstmtCuenta.setInt(4, user1Id);
                         pstmtCuenta.executeUpdate();
                     }
+
+                    // Insertar Datos de usuario 2
+                    pstmtUsuario.setString(1, "3030303030");
+                    pstmtUsuario.setString(2, "12345");
+                    pstmtUsuario.setBoolean(3, false);
+                    pstmtUsuario.executeUpdate();
+                    generatedKeys = pstmtUsuario.getGeneratedKeys();
+                    if (generatedKeys.next()) {
+                        int user2Id = generatedKeys.getInt(1);
+                        System.out.println("User2 ID: " + user2Id);
+
+                        // Insertar datos de Cuenta 2
+                        pstmtCuenta.setString(1, "3030303030");
+                        pstmtCuenta.setString(2, "Emilio Gomez Salazar");
+                        pstmtCuenta.setDouble(3, 10000.0);
+                        pstmtCuenta.setInt(4, user2Id);
+                        pstmtCuenta.executeUpdate();
+                    }
                 }
-                
-    
             }
         } catch (Exception ex) {
             System.err.println("Ocurrió un error: " + ex.getMessage());
