@@ -1,4 +1,3 @@
-
 package cajero;
 
 import java.sql.SQLException;
@@ -72,23 +71,23 @@ class Cliente extends Usuario {
         this.usuarioModel = new UsuarioModel();
         
         double saldo = cuenta.getDinero();
-        if(cantidad<saldo){
+        
+        if (cantidad > saldo) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Mensaje del sistema");
+            alert.setHeaderText(null);
+            alert.setContentText("No tienes suficientes fondos.");
+            alert.showAndWait();
+        } else {
             saldo -= cantidad;
             usuarioModel.update_dinero(id, saldo);
             cuenta.setDinero(usuarioModel.getDinero(id));
         
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("Mensaje del sistema");
-                alert.setHeaderText(null);
-                alert.setContentText("Retiro realizado con éxito.");
-                alert.showAndWait();
-        }
-        else{
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("Mensaje del sistema");
-                alert.setHeaderText(null);
-                alert.setContentText("No tienes suficientes fondos");
-                alert.showAndWait();
+            alert.setTitle("Mensaje del sistema");
+            alert.setHeaderText(null);
+            alert.setContentText("Retiro realizado con éxito.");
+            alert.showAndWait();
         }
         
     }

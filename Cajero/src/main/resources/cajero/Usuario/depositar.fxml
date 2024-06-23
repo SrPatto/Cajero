@@ -18,7 +18,7 @@
                   <Font name="System Bold" size="24.0" />
                </font>
             </Text>
-            <Text fill="#22577a" layoutX="230.0" layoutY="90.0" strokeType="OUTSIDE" strokeWidth="0.0" text="¿Cuánto dinero quieres depositar hoy?">
+            <Text fill="#22577a" layoutX="194.0" layoutY="92.0" strokeType="OUTSIDE" strokeWidth="0.0" text="¿Cuánto dinero quieres depositar hoy a tu cuenta?">
                <font>
                   <Font size="14.0" />
                </font>
@@ -33,7 +33,7 @@
                   <Font name="System Bold" size="18.0" />
                </font>
             </Text>
-            <TextField fx:id="txtSaldo" layoutX="174.0" layoutY="113.0" prefWidth="200.0" promptText="saldo actual" />
+            <TextField fx:id="txtSaldo" editable="false" layoutX="174.0" layoutY="113.0" prefWidth="200.0" promptText="saldo actual" />
             <ImageView fitHeight="20.0" fitWidth="20.0" layoutX="145.0" layoutY="116.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../img/dolar.png" />

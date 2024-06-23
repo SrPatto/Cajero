@@ -54,7 +54,7 @@
                   <Font name="System Bold" size="18.0" />
                </font>
             </Text>
-            <TextField fx:id="txtSaldo" alignment="CENTER" layoutX="260.0" layoutY="88.0" prefWidth="180.0" promptText="saldo " />
+            <TextField fx:id="txtSaldo" alignment="CENTER" editable="false" layoutX="260.0" layoutY="88.0" prefWidth="180.0" promptText="saldo " />
             <ImageView fitHeight="34.0" fitWidth="24.0" layoutX="222.0" layoutY="89.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../img/dolar.png" />

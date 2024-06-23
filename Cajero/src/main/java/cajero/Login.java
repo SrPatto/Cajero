@@ -22,18 +22,20 @@ public class Login implements Initializable {
     private Stage stageLogin;
     @FXML private TextField txtNumCuenta;
     @FXML private TextField txtContrasenia;
-    public LoginModel loginModel;
+    private Autenticador autenticador;
+    private GestorDeAlertas gestorDeAlertas;
 
     public Login() throws Exception {
-        this.loginModel = new LoginModel();
+        this.autenticador = new Autenticador();
+        this.gestorDeAlertas = new GestorDeAlertas();
     }
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         try {
-            if(loginModel.isDBConnected()){
+            if (autenticador.isDBConnected()) {
                 System.out.println("Conectado");
-            }else{
+            } else {
                 System.out.println("No Conectado");
             }
         } catch (SQLException ex) {
@@ -44,51 +46,41 @@ public class Login implements Initializable {
     @FXML
     void login(ActionEvent event) throws Exception {
         if (txtNumCuenta.getText().isEmpty() || txtContrasenia.getText().isEmpty()) {
-            showAlert("Error de validación", "Numero de Cuenta y Contraseña son requeridos.");
+            gestorDeAlertas.mostrarAlerta("Error de validación", "Numero de Cuenta y Contraseña son requeridos.");
             return;
         }
         
         try {
-            if (loginModel.isLogin(txtNumCuenta.getText(), txtContrasenia.getText())) {
-                String fxmlFile = loginModel.isAdmin(txtNumCuenta.getText(), txtContrasenia.getText()) ? "/cajero/Admin/adminUsuarios.fxml" : "/cajero/Usuario/usuarioMenu.fxml";
-                                
-                loadAndShowScene(fxmlFile);
+            if (autenticador.autenticar(txtNumCuenta.getText(), txtContrasenia.getText())) {
+                String fxmlFile = autenticador.esAdmin(txtNumCuenta.getText(), txtContrasenia.getText()) ? "/cajero/Admin/adminUsuarios.fxml" : "/cajero/Usuario/usuarioMenu.fxml";
+                LoaderScene(fxmlFile);
             } else {
-                showAlert("Mensaje del sistema", "Numero de Cuenta o Contraseña incorrecta");
+                gestorDeAlertas.mostrarAlerta("Mensaje del sistema", "Numero de Cuenta o Contraseña incorrecta");
                 limpiarCamposLogin();
             }
         } catch (SQLException | IOException e) {
             LOGGER.log(Level.SEVERE, "Error durante el proceso de login", e);
-            showAlert("Error del sistema", "Ocurrió un error al intentar iniciar sesión.");
+            gestorDeAlertas.mostrarAlerta("Error del sistema", "Ocurrió un error al intentar iniciar sesión.");
             limpiarCamposLogin();
         }
     }
     
-    private void loadAndShowScene(String fxmlFile) throws IOException, SQLException, Exception {
+    private void LoaderScene(String fxmlFile) throws IOException, SQLException, Exception {
         FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFile));
         Parent root = loader.load();
         Scene scene = new Scene(root);
         Stage stage = new Stage();
         stage.setScene(scene);
-        if(loginModel.isAdmin(txtNumCuenta.getText(), txtContrasenia.getText())){
+        if (autenticador.esAdmin(txtNumCuenta.getText(), txtContrasenia.getText())) {
             AdminUsuariosController controller = loader.getController();
             controller.init(txtNumCuenta.getText(), txtContrasenia.getText(), stage, this);
-        }
-        else{
+        } else {
             UsuarioMenuController controller = loader.getController();
             controller.init(txtNumCuenta.getText(), txtContrasenia.getText(), stage, this);
         }
         
         stage.show();
         stageLogin.close();
-    }
-    
-    private void showAlert(String title, String content) {
-        Alert alert = new Alert(AlertType.WARNING);
-        alert.setTitle(title);
-        alert.setHeaderText(null);
-        alert.setContentText(content);
-        alert.showAndWait();
     }
     
     void limpiarCamposLogin() {
@@ -102,5 +94,35 @@ public class Login implements Initializable {
 
     void show() {
         stageLogin.show();
+    }
+}
+
+class GestorDeAlertas {
+    public void mostrarAlerta(String titulo, String contenido) {
+        Alert alert = new Alert(AlertType.WARNING);
+        alert.setTitle(titulo);
+        alert.setHeaderText(null);
+        alert.setContentText(contenido);
+        alert.showAndWait();
+    }
+}
+
+class Autenticador {
+    private LoginModel loginModel;
+
+    public Autenticador() throws Exception {
+        this.loginModel = new LoginModel();
+    }
+
+    public boolean isDBConnected() throws SQLException {
+        return loginModel.isDBConnected();
+    }
+
+    public boolean autenticar(String numeroCuenta, String contrasenia) throws SQLException {
+        return loginModel.isLogin(numeroCuenta, contrasenia);
+    }
+
+    public boolean esAdmin(String numeroCuenta, String contrasenia) throws SQLException {
+        return loginModel.isAdmin(numeroCuenta, contrasenia);
     }
 }
