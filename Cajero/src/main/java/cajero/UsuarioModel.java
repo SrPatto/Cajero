@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 
 public class UsuarioModel {
     private Connection connection;
@@ -72,5 +74,30 @@ public class UsuarioModel {
             System.out.println(e.getMessage());
         }
         return null;   
+    }
+    
+    public void update_saldoDeposito(int id_usuario, double saldo) throws SQLException {
+        String query = "UPDATE Cuentas SET dinero = ? WHERE id_usuario = ?";
+        
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setDouble(1, saldo);
+            preparedStatement.setInt(2, id_usuario);
+        
+            int filasAfectadas = preparedStatement.executeUpdate(); // Usar executeUpdate para operaciones de actualización
+        
+            if (filasAfectadas == 0) {
+                System.out.println("Error al realizar el deposito: ");
+            } else {
+                System.out.println("Deposito realizado con exito.");
+                
+                Alert alert = new Alert(AlertType.INFORMATION);
+                alert.setTitle("Mensaje del sistema");
+                alert.setHeaderText(null);
+                alert.setContentText("Depósito realizado con éxito.");
+                alert.showAndWait();
+            }
+        } catch (SQLException e) {
+            System.out.println("Error al realizar el depósito: " + e.getMessage());
+        }
     }
 }

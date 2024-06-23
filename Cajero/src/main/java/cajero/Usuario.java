@@ -1,7 +1,11 @@
 
 package cajero;
 
+import java.sql.SQLException;
+
+
 public abstract class Usuario {
+    protected int id;
     protected String num_cuenta;
     protected String password;
     protected Cuenta cuenta;
@@ -28,15 +32,25 @@ public abstract class Usuario {
 //    }
 }
 
-class Cliente extends Usuario {
-    public Cliente(String num_Cuenta, String password, Cuenta cuenta) {
+class Cliente extends Usuario {  
+    public UsuarioModel usuarioModel;
+    
+    public Cliente(String num_Cuenta, String password, Cuenta cuenta) throws SQLException, Exception {
+        this.usuarioModel = new UsuarioModel();
+        this.id = usuarioModel.getID_Usuario(num_Cuenta, password);
         this.num_cuenta = num_Cuenta;
         this.password = password;
         this.cuenta = cuenta;
     }
 
-    public void depositar(double cantidad) {
+    public void depositar(double cantidad) throws SQLException, Exception {
         // Lógica para depositar dinero
+        this.usuarioModel = new UsuarioModel();
+        
+        double saldo = cuenta.getDinero();
+        saldo += cantidad;
+        usuarioModel.update_saldoDeposito(id, saldo);
+        cuenta.setDinero(usuarioModel.getDinero(id));
     }
 
     public void retirar(double cantidad) {

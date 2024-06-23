@@ -16,6 +16,8 @@ public class UsuarioMenuController {
     private Stage stageMenu;
     private Login loginController;
     public UsuarioModel usuarioModel;
+    private Cliente userLogged;
+    private Cuenta cuentaLogged;
     
     @FXML private Button btn_Logout;
     @FXML private Button btn_DepositarToVentana;
@@ -36,20 +38,26 @@ public class UsuarioMenuController {
         this.loginController = login;
         this.stageMenu = stage;
         this.usuarioModel = new UsuarioModel();
-
         int idUsuario;
-        try {
-            idUsuario = usuarioModel.getID_Usuario(txtNumCuenta, txtContrasenia);
-            Cuenta cuentaLogged = new Cuenta(idUsuario);
-            Cliente userLogged = new Cliente(txtNumCuenta, txtContrasenia, cuentaLogged);
-            
-        } catch (SQLException e) {
-            e.printStackTrace();
-
-            throw e;
-        }
         
-        double saldo = usuarioModel.getDinero(idUsuario);
+        if(userLogged == null){
+            try {
+            idUsuario = usuarioModel.getID_Usuario(txtNumCuenta, txtContrasenia);
+            cuentaLogged = new Cuenta(idUsuario);
+            userLogged = new Cliente(txtNumCuenta, txtContrasenia, cuentaLogged);
+        
+            } catch (SQLException e) {
+                e.printStackTrace();
+                throw e;
+            }
+        }
+        if (cuentaLogged != null) {
+            showSaldo();
+        }
+    }
+    
+    public void showSaldo(){
+        double saldo = cuentaLogged.getDinero();
         txtSaldo.setText(String.valueOf(saldo));
     }
     
@@ -58,7 +66,7 @@ public class UsuarioMenuController {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/cajero/Usuario/depositar.fxml"));
         Parent root = loader.load();
         DepositarController depositarController = loader.getController();
-        depositarController.init(this, stageMenu); 
+        depositarController.init(userLogged, cuentaLogged, this, stageMenu); 
         Scene scene = new Scene(root);
         Stage stageDepositar = new Stage();
         stageDepositar.setScene(scene);
