@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="350.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cajero.AdminEditarController">
+   <top>
+      <AnchorPane prefHeight="120.0" prefWidth="350.0" style="-fx-background-color: #22577A;" BorderPane.alignment="CENTER">
+         <children>
+            <Text fill="WHITE" layoutX="75.0" layoutY="69.0" strokeType="OUTSIDE" strokeWidth="0.0" text="EDITAR USUARIO" wrappingWidth="200.66676330566406">
+               <font>
+                  <Font name="System Bold" size="24.0" />
+               </font>
+            </Text>
+            <Button fx:id="btn_CerrarVentanaEditar" layoutX="312.0" layoutY="14.0" mnemonicParsing="false" onAction="#cerrarVentanaEditar" text="X" textFill="#22577a">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Button>
+         </children>
+      </AnchorPane>
+   </top>
+   <center>
+      <AnchorPane prefHeight="380.0" prefWidth="350.0" BorderPane.alignment="CENTER">
+         <children>
+            <Text fill="#22577a" layoutX="90.0" layoutY="45.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nombre:">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Text>
+            <Text fill="#22577a" layoutX="91.0" layoutY="130.0" strokeType="OUTSIDE" strokeWidth="0.0" text="No. Cuenta:">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Text>
+            <Text fill="#22577a" layoutX="91.0" layoutY="226.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Saldo:">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Text>
+            <TextField fx:id="txtNombreUsuario" layoutX="89.0" layoutY="50.0" prefWidth="200.0" promptText="Nombre" style="-fx-background-color: transparent; -fx-border-color: #22577A; -fx-border-width: 0px 0px 3px 0px;" />
+            <TextField fx:id="txtNumCuenta" layoutX="90.0" layoutY="137.0" prefWidth="200.0" promptText="No. Cuenta" style="-fx-background-color: transparent; -fx-border-color: #22577A; -fx-border-width: 0px 0px 3px 0px;" />
+            <TextField fx:id="txtSaldo" layoutX="89.0" layoutY="231.0" prefWidth="200.0" promptText="No. Cuenta" style="-fx-background-color: transparent; -fx-border-color: #22577A; -fx-border-width: 0px 0px 3px 0px;" />
+            <ImageView fitHeight="20.0" fitWidth="20.0" layoutX="61.0" layoutY="54.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../img/usuario.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="20.0" fitWidth="20.0" layoutX="61.0" layoutY="141.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../img/candado.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="20.0" fitWidth="20.0" layoutX="61.0" layoutY="235.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../img/dolar2.png" />
+               </image>
+            </ImageView>
+            <Button fx:id="btn_EditarUsuario" layoutX="125.0" layoutY="296.0" mnemonicParsing="false" onAction="#editarUsuario" prefWidth="100.0" style="-fx-background-color: #22577A;" text="Editar" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Button>
+         </children>
+      </AnchorPane>
+   </center>
+</BorderPane>

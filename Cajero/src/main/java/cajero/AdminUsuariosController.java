@@ -28,14 +28,13 @@ public class AdminUsuariosController implements Initializable {
     private Login loginController;
     private Connection connection;
     public UsuarioModel usuarioModel;
-    private Admin userLogged;
+    private Cliente userLogged;
     private Cuenta cuentaLogged;
     private int idUsuario;
     private String nombre;
     private String num_cuenta;
     private double saldo;
     private ObservableList<Cuenta> clientes;
-    private Cuenta cuentaSeleccionada;
     
 
     @FXML private Button btn_ActualizarTabla;
@@ -43,21 +42,16 @@ public class AdminUsuariosController implements Initializable {
     @FXML private Button btn_EditarUsuario;
     @FXML private Button btn_EliminarUsuario;
     @FXML private Button btn_logout;
-    @FXML
-    private TableView<Cuenta> tbl_Usuarios;
-    @FXML
-    private TableColumn<Cuenta, String> colID;
-    @FXML
-    private TableColumn<Cuenta, String> colNombre;
-    @FXML
-    private TableColumn<Cuenta, String> colNoCuenta;
-    @FXML
-    private TableColumn<Cuenta, String> colSaldo;
+    @FXML private TableView<Cuenta> tbl_Usuarios;
+    @FXML private TableColumn<Cuenta, String> colID;
+    @FXML private TableColumn<Cuenta, String> colNombre;
+    @FXML private TableColumn<Cuenta, String> colNoCuenta;
+    @FXML private TableColumn<Cuenta, String> colSaldo;
     
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        
     }
     
     void init(String txtNumCuenta, String txtContrasenia, Stage stage, Login login) throws Exception {
@@ -72,7 +66,7 @@ public class AdminUsuariosController implements Initializable {
         try {
             idUsuario = usuarioModel.getID_Usuario(txtNumCuenta);
             cuentaLogged = new Cuenta(idUsuario);
-            userLogged = new Admin(txtNumCuenta, txtContrasenia, cuentaLogged);
+            userLogged = new Cliente(txtNumCuenta, txtContrasenia, cuentaLogged);
         
         } catch (SQLException e) {
                 e.printStackTrace();
@@ -83,7 +77,7 @@ public class AdminUsuariosController implements Initializable {
         
         tbl_Usuarios.getSelectionModel().getSelectedItems().addListener((ListChangeListener<Cuenta>) c -> {
             if (c.getList().size() == 1) { 
-                cuentaSeleccionada = c.getList().get(0);
+                Cuenta cuentaSeleccionada = c.getList().get(0);
                 nombre = cuentaSeleccionada.getNombre();
                 num_cuenta = cuentaSeleccionada.getNum_cuenta();
                 saldo = cuentaSeleccionada.getDinero(); 
@@ -149,15 +143,20 @@ public class AdminUsuariosController implements Initializable {
     }
 
     @FXML
-    void editarUsuario(ActionEvent event) {
-        
+    void editarUsuario(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/cajero/Admin/adminEditar.fxml"));
+        Parent root = loader.load();
+        AdminEditarController adminEditarController = loader.getController();
+        adminEditarController.init(this, stageAdminUsuarios);
+        Scene scene = new Scene(root);
+        Stage stageEditarUsuario = new Stage();
+        stageEditarUsuario.setScene(scene);
+        adminEditarController.setStage(stageEditarUsuario);
+        stageEditarUsuario.show();
     }
 
     @FXML
-    void eliminarUsuario(ActionEvent event) throws Exception {
-        
-        userLogged.eliminarUsuario(cuentaSeleccionada);
-        clientes.remove(cuentaSeleccionada);
+    void eliminarUsuario(ActionEvent event) {
         
     }
 }

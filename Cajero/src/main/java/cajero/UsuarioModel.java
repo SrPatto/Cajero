@@ -135,36 +135,4 @@ public class UsuarioModel {
             System.out.println("Error al realizar el update dinero: " + e.getMessage());
         }
     }
-    
-    public void eliminarUsuario(int id_usuario){
-        String queryCuentas = "DELETE FROM Cuentas WHERE id_usuario = ?";
-        String queryUsuario = "DELETE FROM Usuarios WHERE id = ?";
-        
-        try (PreparedStatement preparedStatementCuenta = connection.prepareStatement(queryCuentas);
-                PreparedStatement preparedStatementUsuario = connection.prepareStatement(queryUsuario)){
-            preparedStatementCuenta.setInt(1, id_usuario);
-        
-            int filasAfectadas = preparedStatementCuenta.executeUpdate();
-        
-            if (filasAfectadas == 0) {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Mensaje del sistema");
-                alert.setHeaderText(null);
-                alert.setContentText("Error al eliminar el usuario");
-                alert.showAndWait();
-            } else {
-                preparedStatementUsuario.setInt(1, id_usuario);
-                preparedStatementUsuario.executeUpdate();
-                
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("Mensaje del sistema");
-                alert.setHeaderText(null);
-                alert.setContentText("Usuario eliminado con exito.");
-                alert.showAndWait();
-            }
-        } catch (SQLException e) {
-            System.out.println("Error al eliminar usuario: " + e.getMessage());
-        }
-        
-    }
 }

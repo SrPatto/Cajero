@@ -43,6 +43,7 @@ public class AdminAgregarController {
     }
     
     private void insertarUsuario(Connection conn, String nombre, String num_cuenta, double dinero) {
+        String checkUsersQuery = "SELECT COUNT(*) AS count FROM Usuarios";
         int numeroAleatorio = (int)(Math.random() * 10000) + 1;
         String contrasenia = String.valueOf(numeroAleatorio);
   
@@ -80,20 +81,52 @@ public class AdminAgregarController {
         
     }
     
-    void limpiarCamposLogin() {
-        txtNombreUsuario.clear();
-        txtNumCuenta.clear();
-        txtSaldo.clear();
+    @FXML
+    void cerrarVentanaAgregar(ActionEvent event) {
+        stageAgregarUsuario.close();  
     }
 
     @FXML
     void agregarUsuario(ActionEvent event) {
+        String NameUserStr = txtNombreUsuario.getText().trim();
+        String NumCuentaStr = txtNumCuenta.getText().trim();
+        String SaldoStr = txtSaldo.getText().trim();
+        
+        if (esNumeroValido(NameUserStr)) {
+            mostrarAlerta("Error de validación", "Ingrese un nombre válido para el usuario.");
+            txtNombreUsuario.clear();
+            txtNumCuenta.clear();
+            txtSaldo.clear();
+            return;
+        }
+        
+        if (!esNumeroValido(NumCuentaStr) && !esNumeroValido(SaldoStr)) {
+            mostrarAlerta("Error de validación", "Ingrese un número de cuenta y un saldo válidos.");
+            txtNombreUsuario.clear();
+            txtNumCuenta.clear();
+            txtSaldo.clear();
+            return;
+        } else if (!esNumeroValido(NumCuentaStr)) {
+            mostrarAlerta("Error de validación", "Ingrese un número de cuenta válido para el usuario.");
+            txtNombreUsuario.clear();
+            txtNumCuenta.clear();
+            txtSaldo.clear();
+            return;
+        } else if (!esNumeroValido(SaldoStr)) {
+            mostrarAlerta("Error de validación", "Ingrese un número válido para el saldo.");
+            txtNombreUsuario.clear();
+            txtNumCuenta.clear();
+            txtSaldo.clear();
+            return;
+        }
+        
+        
         nombre = txtNombreUsuario.getText();
         num_cuenta = txtNumCuenta.getText();
         dinero = Integer.parseInt(txtSaldo.getText());
         
         try (Connection conn = DriverManager.getConnection("jdbc:sqlite:" + DB);
-            Statement stmt = conn.createStatement()) {
+             Statement stmt = conn.createStatement()) {
             insertarUsuario(conn, nombre, num_cuenta, dinero);
             
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -113,9 +146,27 @@ public class AdminAgregarController {
             limpiarCamposLogin();
         }
     }
-
-    @FXML
-    void cerrarVentanaAgregar(ActionEvent event) {
-        stageAgregarUsuario.close();  
+    
+    void limpiarCamposLogin() {
+        txtNombreUsuario.clear();
+        txtNumCuenta.clear();
+        txtSaldo.clear();
+    }
+    
+    private boolean esNumeroValido(String numero) {
+        try {
+            Double.parseDouble(numero);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
+    }
+    
+    private void mostrarAlerta(String titulo, String contenido) {
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle(titulo);
+        alert.setHeaderText(null);
+        alert.setContentText(contenido);
+        alert.showAndWait();
     }
 }

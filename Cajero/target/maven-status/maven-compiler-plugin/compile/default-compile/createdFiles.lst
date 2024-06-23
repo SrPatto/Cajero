@@ -13,6 +13,7 @@ cajero\LoginModel.class
 cajero\TransferirController.class
 cajero\UsuarioModel.class
 cajero\Cuenta.class
+cajero\AdminEditarController.class
 cajero\SqliteConnection.class
 cajero\RetirarAvisoController.class
 cajero\App.class

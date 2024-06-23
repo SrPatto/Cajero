@@ -12,6 +12,7 @@ import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -115,15 +116,38 @@ public class TransferirController {
 
     @FXML
     void Transferir(ActionEvent event) throws Exception {
+        String transferenciaStr = txtTransferencia.getText().trim();
+        
+        if(!esNumeroValido(transferenciaStr)){
+            mostrarAlerta("Error de validación", "Ingrese un número válido para la transferencia.");
+            txtTransferencia.clear();
+            txtNumCuenta.clear();
+            return;
+        }
         
         double transferencia = Double.parseDouble(txtTransferencia.getText());
         String num_cuentaDestino = txtNumCuenta.getText();
         
-        
         cuentaDestino = new Cuenta(num_cuentaDestino);
-        
         userLogged.transferir(transferencia, cuentaDestino);
-        
         txtTransferencia.clear();
+        txtNumCuenta.clear();
+    }
+    
+    private boolean esNumeroValido(String numero) {
+        try {
+            Double.parseDouble(numero);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
+    }
+    
+    private void mostrarAlerta(String titulo, String contenido) {
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle(titulo);
+        alert.setHeaderText(null);
+        alert.setContentText(contenido);
+        alert.showAndWait();
     }
 }
