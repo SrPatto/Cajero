@@ -6,7 +6,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.List;
 import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -28,6 +30,8 @@ public class TransferirController {
     private Connection connection;
     public UsuarioModel usuarioModel;
     private Cuenta cuentaDestino;
+    private ObservableList<Cuenta> clientes;
+    private int ID_cuentaLogged;
 
 
     @FXML private Button btn_BackToUsuarioMenu;
@@ -49,7 +53,16 @@ public class TransferirController {
         colNombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
         colNoCuenta.setCellValueFactory(new PropertyValueFactory<>("num_cuenta"));
 
+        ID_cuentaLogged = cuentaLogged.getId_usuario();
+        
         cargarDatos();
+        
+        tbl_Transferir.getSelectionModel().getSelectedItems().addListener((ListChangeListener<Cuenta>) c -> {
+            if (c.getList().size() == 1) { 
+                Cuenta cuentaSeleccionada = c.getList().get(0);
+                txtNumCuenta.setText(cuentaSeleccionada.getNum_cuenta()); 
+            }
+        });
 
         this.cuentaLogged = cuentaLogged;
 
@@ -64,12 +77,13 @@ public class TransferirController {
     }
 
     private void cargarDatos() throws Exception {
-        ObservableList<Cuenta> clientes = FXCollections.observableArrayList();
-        String query = "SELECT nombre, num_cuenta FROM Cuentas";
+        clientes = FXCollections.observableArrayList();
+        String query = "SELECT nombre, num_cuenta FROM Cuentas WHERE id_usuario != ?";
 
         try {
             connection = SqliteConnection.connect(); 
             PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setInt(1, ID_cuentaLogged);
             ResultSet resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
@@ -89,7 +103,9 @@ public class TransferirController {
 
         tbl_Transferir.setItems(clientes);
     }
-
+            
+    
+    
     @FXML
     void BackToUsuarioMenu(ActionEvent event) {
         stageTransferir.close();

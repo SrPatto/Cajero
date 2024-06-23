@@ -30,12 +30,12 @@
    <left>
       <AnchorPane prefHeight="380.0" prefWidth="700.0" BorderPane.alignment="CENTER">
          <children>
-            <TableView layoutX="95.0" layoutY="110.0" prefHeight="220.0" prefWidth="510.0">
+            <TableView fx:id="tbl_Usuarios" layoutX="95.0" layoutY="110.0" prefHeight="220.0" prefWidth="510.0">
               <columns>
-                <TableColumn minWidth="60.0" prefWidth="60.0" text="ID" />
-                <TableColumn prefWidth="200.0" text="Nombre" />
-                  <TableColumn prefWidth="125.0" text="No. Cuenta" />
-                  <TableColumn prefWidth="125.0" text="Saldo " />
+                <TableColumn minWidth="60.0" prefWidth="60.0" text="ID" fx:id="colID"/>
+                <TableColumn prefWidth="200.0" text="Nombre" fx:id="colNombre"/>
+                  <TableColumn prefWidth="125.0" text="No. Cuenta" fx:id="colNoCuenta"/>
+                  <TableColumn prefWidth="125.0" text="Saldo " fx:id="colSaldo"/>
               </columns>
             </TableView>
             <Button fx:id="btn_AgregarUsuario" contentDisplay="GRAPHIC_ONLY" layoutX="67.0" layoutY="23.0" mnemonicParsing="false" onAction="#agregarUsuario" prefHeight="40.0" prefWidth="40.0" text="Button">

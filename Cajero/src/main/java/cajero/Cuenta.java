@@ -36,6 +36,15 @@ public class Cuenta {
         setNombre(nombre);
         setDinero(usuarioModel.getDinero(id_usuario));
     }
+    
+    public Cuenta(int id_usuario, String nombre, String num_cuenta, double dinero) throws SQLException, Exception {
+        this.usuarioModel = new UsuarioModel();
+        
+        this.id_usuario = usuarioModel.getID_Usuario(num_cuenta);
+        setNum_cuenta(num_cuenta);
+        setNombre(nombre);
+        setDinero(dinero);
+    }
 
     // Métodos getters y setters
     public String getNum_cuenta() {
