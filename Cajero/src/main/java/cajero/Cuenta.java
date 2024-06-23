@@ -8,8 +8,10 @@ public class Cuenta {
     private double dinero;
     public UsuarioModel usuarioModel;
 
-    public Cuenta(int id_usuario) throws SQLException {
+    public Cuenta(int id_usuario) throws SQLException, Exception {
         this.id_usuario = id_usuario;
+        this.usuarioModel = new UsuarioModel();
+        
         setNombre(usuarioModel.getnombre(id_usuario));
         setDinero(usuarioModel.getDinero(id_usuario));
     }
