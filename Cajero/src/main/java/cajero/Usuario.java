@@ -2,6 +2,7 @@
 package cajero;
 
 import java.sql.SQLException;
+import javafx.scene.control.Alert;
 
 
 public abstract class Usuario {
@@ -49,12 +50,40 @@ class Cliente extends Usuario {
         
         double saldo = cuenta.getDinero();
         saldo += cantidad;
-        usuarioModel.update_saldoDeposito(id, saldo);
+        usuarioModel.update_dinero(id, saldo);
         cuenta.setDinero(usuarioModel.getDinero(id));
+        
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Mensaje del sistema");
+                alert.setHeaderText(null);
+                alert.setContentText("Depósito realizado con éxito.");
+                alert.showAndWait();
     }
 
-    public void retirar(double cantidad) {
+    public void retirar(double cantidad) throws SQLException, Exception {
         // Lógica para retirar dinero
+        this.usuarioModel = new UsuarioModel();
+        
+        double saldo = cuenta.getDinero();
+        if(cantidad<saldo){
+            saldo -= cantidad;
+            usuarioModel.update_dinero(id, saldo);
+            cuenta.setDinero(usuarioModel.getDinero(id));
+        
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Mensaje del sistema");
+                alert.setHeaderText(null);
+                alert.setContentText("Retiro realizado con éxito.");
+                alert.showAndWait();
+        }
+        else{
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Mensaje del sistema");
+                alert.setHeaderText(null);
+                alert.setContentText("No tienes suficientes fondos");
+                alert.showAndWait();
+        }
+        
     }
 
     public void transferir(double cantidad, Cuenta destino) {

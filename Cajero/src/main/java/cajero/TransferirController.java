@@ -11,16 +11,25 @@ public class TransferirController {
     private UsuarioMenuController usuarioMenuController;
     private Stage stageBackToMenu;
     private Stage stageTransferir;
+    private double saldo;
+    private Cliente userLogged;
+    private Cuenta cuentaLogged;
 
     @FXML private Button btn_BackToUsuarioMenu;
     @FXML private Button btn_Transferir;
     @FXML private TextField txtNumCuenta;
     @FXML private TextField txtTransferencia;
     
-    void init(UsuarioMenuController usuarioMenuController, Stage stageBackToMenu) {
+    public void init(Cliente userLogged, Cuenta cuentaLogged, UsuarioMenuController usuarioMenuController, Stage stageBackToMenu) {
         this.usuarioMenuController = usuarioMenuController;
         this.stageBackToMenu = stageBackToMenu;
         
+        this.cuentaLogged = cuentaLogged; 
+        
+        if (cuentaLogged != null) {
+            saldo = cuentaLogged.getDinero();
+            this.userLogged = userLogged;
+        }
     }
 
     void setStage(Stage stage) {

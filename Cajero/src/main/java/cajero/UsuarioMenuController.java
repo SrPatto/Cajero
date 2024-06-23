@@ -40,17 +40,16 @@ public class UsuarioMenuController {
         this.usuarioModel = new UsuarioModel();
         int idUsuario;
         
-        if(userLogged == null){
-            try {
+        try {
             idUsuario = usuarioModel.getID_Usuario(txtNumCuenta, txtContrasenia);
             cuentaLogged = new Cuenta(idUsuario);
             userLogged = new Cliente(txtNumCuenta, txtContrasenia, cuentaLogged);
         
-            } catch (SQLException e) {
+        } catch (SQLException e) {
                 e.printStackTrace();
                 throw e;
-            }
         }
+        
         if (cuentaLogged != null) {
             showSaldo();
         }
@@ -80,7 +79,7 @@ public class UsuarioMenuController {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/cajero/Usuario/retirar.fxml"));
         Parent root = loader.load();
         RetirarController retirarController = loader.getController();
-        retirarController.init(this, stageMenu);
+        retirarController.init(userLogged, cuentaLogged, this, stageMenu);
         Scene scene = new Scene(root);
         Stage stageRetirar = new Stage();
         stageRetirar.setScene(scene);
@@ -94,7 +93,7 @@ public class UsuarioMenuController {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/cajero/Usuario/transferir.fxml"));
         Parent root = loader.load();
         TransferirController transferirController = loader.getController();
-        transferirController.init(this, stageMenu);
+        transferirController.init(userLogged, cuentaLogged, this, stageMenu);
         Scene scene = new Scene(root);
         Stage stageTransferir = new Stage();
         stageTransferir.setScene(scene);

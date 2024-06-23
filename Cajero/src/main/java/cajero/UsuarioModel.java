@@ -76,28 +76,22 @@ public class UsuarioModel {
         return null;   
     }
     
-    public void update_saldoDeposito(int id_usuario, double saldo) throws SQLException {
+    public void update_dinero(int id_usuario, double saldo) throws SQLException {
         String query = "UPDATE Cuentas SET dinero = ? WHERE id_usuario = ?";
         
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setDouble(1, saldo);
             preparedStatement.setInt(2, id_usuario);
         
-            int filasAfectadas = preparedStatement.executeUpdate(); // Usar executeUpdate para operaciones de actualización
+            int filasAfectadas = preparedStatement.executeUpdate();
         
             if (filasAfectadas == 0) {
-                System.out.println("Error al realizar el deposito: ");
+                System.out.println("Error al realizar update dinero ");
             } else {
-                System.out.println("Deposito realizado con exito.");
-                
-                Alert alert = new Alert(AlertType.INFORMATION);
-                alert.setTitle("Mensaje del sistema");
-                alert.setHeaderText(null);
-                alert.setContentText("Depósito realizado con éxito.");
-                alert.showAndWait();
+                System.out.println("Update dinero realizado con exito.");
             }
         } catch (SQLException e) {
-            System.out.println("Error al realizar el depósito: " + e.getMessage());
+            System.out.println("Error al realizar el update dinero: " + e.getMessage());
         }
     }
 }
