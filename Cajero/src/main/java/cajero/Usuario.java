@@ -140,10 +140,6 @@ class Admin extends Usuario {
         this.cuenta = cuenta;
     }
 
-    public void agregarUsuario() {
-        // Lógica para agregar un usuario
-    }
-
     public void eliminarUsuario() {
         // Lógica para eliminar un usuario
     }

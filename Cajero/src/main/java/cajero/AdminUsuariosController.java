@@ -8,6 +8,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -29,7 +30,10 @@ public class AdminUsuariosController implements Initializable {
     public UsuarioModel usuarioModel;
     private Cliente userLogged;
     private Cuenta cuentaLogged;
-    int idUsuario;
+    private int idUsuario;
+    private String nombre;
+    private String num_cuenta;
+    private double saldo;
     private ObservableList<Cuenta> clientes;
     
 
@@ -75,6 +79,15 @@ public class AdminUsuariosController implements Initializable {
         }
 
         cargarDatos();
+        
+        tbl_Usuarios.getSelectionModel().getSelectedItems().addListener((ListChangeListener<Cuenta>) c -> {
+            if (c.getList().size() == 1) { 
+                Cuenta cuentaSeleccionada = c.getList().get(0);
+                nombre = cuentaSeleccionada.getNombre();
+                num_cuenta = cuentaSeleccionada.getNum_cuenta();
+                saldo = cuentaSeleccionada.getDinero(); 
+            }
+        });
         
     }    
     
