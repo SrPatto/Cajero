@@ -1,6 +1,7 @@
 package cajero;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -14,6 +15,7 @@ public class UsuarioMenuController {
     
     private Stage stageMenu;
     private Login loginController;
+    public UsuarioModel usuarioModel;
     
     @FXML private Button btn_Logout;
     @FXML private Button btn_DepositarToVentana;
@@ -21,16 +23,34 @@ public class UsuarioMenuController {
     @FXML private Button btn_TransferirToVentana;
     @FXML private TextField txtSaldo;
 
+    
     @FXML
     void cerrarSesion(ActionEvent event) {
         loginController.limpiarCamposLogin();
         loginController.show();
         stageMenu.close();
     }
-
-    void init(String txtNumCuenta, String txtContrasenia, Stage stage, Login login) {
+    
+    @FXML
+    public void init(String txtNumCuenta, String txtContrasenia, Stage stage, Login login) throws SQLException, Exception {
         this.loginController = login;
         this.stageMenu = stage;
+        this.usuarioModel = new UsuarioModel();
+
+        int idUsuario;
+        try {
+            idUsuario = usuarioModel.getID_Usuario(txtNumCuenta, txtContrasenia);
+            Cuenta cuentaLogged = new Cuenta(idUsuario);
+            Cliente userLogged = new Cliente(txtNumCuenta, txtContrasenia, cuentaLogged);
+            
+        } catch (SQLException e) {
+            e.printStackTrace();
+
+            throw e;
+        }
+        
+        double saldo = usuarioModel.getDinero(idUsuario);
+        txtSaldo.setText(String.valueOf(saldo));
     }
     
     @FXML

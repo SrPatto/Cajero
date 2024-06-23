@@ -41,7 +41,7 @@ public class Login implements Initializable {
     }
     
     @FXML
-    void login(ActionEvent event) {
+    void login(ActionEvent event) throws Exception {
         if (txtNumCuenta.getText().isEmpty() || txtContrasenia.getText().isEmpty()) {
             showAlert("Error de validación", "Numero de Cuenta y Contraseña son requeridos.");
             return;
@@ -63,7 +63,7 @@ public class Login implements Initializable {
         }
     }
     
-    private void loadAndShowScene(String fxmlFile) throws IOException, SQLException {
+    private void loadAndShowScene(String fxmlFile) throws IOException, SQLException, Exception {
         FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFile));
         Parent root = loader.load();
         Scene scene = new Scene(root);
