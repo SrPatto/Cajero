@@ -19,24 +19,64 @@ public class UsuarioModel {
         return connection != null && !connection.isClosed();
     }
     
-    public int getID_Usuario(String num_cuenta, String password) throws SQLException {
-        String query = "SELECT id FROM Usuarios WHERE num_cuenta = ? AND password = ?";
+    public boolean existCuenta(String num_cuenta) throws SQLException {
+        String query = "SELECT * FROM Cuentas WHERE num_cuenta = ?";
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+        try{
+            preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1, num_cuenta);
+        
+            resultSet = preparedStatement.executeQuery();
+            if(resultSet.next())
+                return true;
+            else{
+                return false;
+            }
+        } catch(Exception e){
+            return false;
+        } finally{
+            preparedStatement.close();
+            resultSet.close();
+        }
+    }
+    
+    public int getID_Usuario(String num_cuenta) throws SQLException {
+        String query = "SELECT id FROM Usuarios WHERE num_cuenta = ? ";
         
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setString(1, num_cuenta);
-            preparedStatement.setString(2, password);
         
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 if (resultSet.next()) {
                     return resultSet.getInt("id");
                 } else {
-                    System.out.println("Usuario no encontrado o contraseña incorrecta.");
+                    System.out.println("Usuario no encontrado.");
                 }
             }
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
         return 0;
+    }
+    
+    public String getNum_Cuenta(int id_usuario) throws SQLException {
+        String query = "SELECT num_cuenta FROM Cuentas WHERE id_usuario = ?";
+        
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setInt(1, id_usuario);
+        
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    return resultSet.getString("num_cuenta");
+                } else {
+                    System.out.println("Cuenta no encontrada.");
+                }
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return null;   
     }
     
     public double getDinero(int id_usuario) throws SQLException {
@@ -57,6 +97,7 @@ public class UsuarioModel {
         }
         return 0;
     }
+    
     public String getnombre(int id_usuario) throws SQLException {
         String query = "SELECT nombre FROM Cuentas WHERE id_usuario = ?";
         

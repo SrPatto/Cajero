@@ -38,9 +38,16 @@ class Cliente extends Usuario {
     
     public Cliente(String num_Cuenta, String password, Cuenta cuenta) throws SQLException, Exception {
         this.usuarioModel = new UsuarioModel();
-        this.id = usuarioModel.getID_Usuario(num_Cuenta, password);
+        this.id = usuarioModel.getID_Usuario(num_Cuenta);
         this.num_cuenta = num_Cuenta;
         this.password = password;
+        this.cuenta = cuenta;
+    }
+    
+    public Cliente(String num_Cuenta, Cuenta cuenta) throws SQLException, Exception {
+        this.usuarioModel = new UsuarioModel();
+        this.id = usuarioModel.getID_Usuario(num_Cuenta);
+        this.num_cuenta = num_Cuenta;
         this.cuenta = cuenta;
     }
 
@@ -86,8 +93,44 @@ class Cliente extends Usuario {
         
     }
 
-    public void transferir(double cantidad, Cuenta destino) {
+    public void transferir(double cantidad, Cuenta cuentaDestino) throws Exception {
         // Lógica para transferir dinero
+        this.usuarioModel = new UsuarioModel();
+        
+        double saldo = cuenta.getDinero();
+        double saldoDestino = cuentaDestino.getDinero();
+        int idDestino = cuentaDestino.getId_usuario();
+        
+        if(usuarioModel.existCuenta(cuentaDestino.getNum_cuenta())){
+            if(cantidad<saldo){
+                saldo -= cantidad;
+                saldoDestino += cantidad;
+            
+                usuarioModel.update_dinero(id, saldo);
+                cuenta.setDinero(usuarioModel.getDinero(id));
+            
+                usuarioModel.update_dinero(idDestino, saldoDestino);
+                cuentaDestino.setDinero(usuarioModel.getDinero(idDestino));
+        
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Mensaje del sistema");
+                alert.setHeaderText(null);
+                alert.setContentText("Transferencia realizada con éxito.");
+                alert.showAndWait();
+            } else{
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Mensaje del sistema");
+                alert.setHeaderText(null);
+                alert.setContentText("No tienes suficiente dinero para esta transferencia");
+                alert.showAndWait();
+            }
+        } else{
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Mensaje del sistema");
+            alert.setHeaderText(null);
+            alert.setContentText("No existe el numero de cuenta.");
+            alert.showAndWait();
+        }
     }
 }
 

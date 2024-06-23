@@ -41,7 +41,7 @@ public class UsuarioMenuController {
         int idUsuario;
         
         try {
-            idUsuario = usuarioModel.getID_Usuario(txtNumCuenta, txtContrasenia);
+            idUsuario = usuarioModel.getID_Usuario(txtNumCuenta);
             cuentaLogged = new Cuenta(idUsuario);
             userLogged = new Cliente(txtNumCuenta, txtContrasenia, cuentaLogged);
         
@@ -89,7 +89,7 @@ public class UsuarioMenuController {
     }
 
     @FXML
-    void transferirToVentana(ActionEvent event) throws IOException {
+    void transferirToVentana(ActionEvent event) throws IOException, Exception {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/cajero/Usuario/transferir.fxml"));
         Parent root = loader.load();
         TransferirController transferirController = loader.getController();
