@@ -134,14 +134,18 @@ class Cliente extends Usuario {
 }
 
 class Admin extends Usuario {
+
+    private UsuarioModel usuarioModel;
     public Admin(String num_Cuenta, String password, Cuenta cuenta) {
         this.num_cuenta = num_Cuenta;
         this.password = password;
         this.cuenta = cuenta;
     }
 
-    public void eliminarUsuario() {
-        // Lógica para eliminar un usuario
+    public void eliminarUsuario(Cuenta cuentaEliminar) throws Exception {
+        this.usuarioModel = new UsuarioModel();
+        int Id_UsuarioEliminar = cuentaEliminar.getId_usuario();
+        usuarioModel.eliminarUsuario(Id_UsuarioEliminar);
     }
 
     public void actualizarUsuario() {

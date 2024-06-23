@@ -43,7 +43,6 @@ public class AdminAgregarController {
     }
     
     private void insertarUsuario(Connection conn, String nombre, String num_cuenta, double dinero) {
-        String checkUsersQuery = "SELECT COUNT(*) AS count FROM Usuarios";
         int numeroAleatorio = (int)(Math.random() * 10000) + 1;
         String contrasenia = String.valueOf(numeroAleatorio);
   
@@ -94,7 +93,7 @@ public class AdminAgregarController {
         dinero = Integer.parseInt(txtSaldo.getText());
         
         try (Connection conn = DriverManager.getConnection("jdbc:sqlite:" + DB);
-             Statement stmt = conn.createStatement()) {
+            Statement stmt = conn.createStatement()) {
             insertarUsuario(conn, nombre, num_cuenta, dinero);
             
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
