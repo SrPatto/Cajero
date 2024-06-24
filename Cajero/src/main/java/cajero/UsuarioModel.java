@@ -136,16 +136,25 @@ public class UsuarioModel {
         }
     }
     
-    public void eliminarUsuario(int id_usuario){
+    public void eliminarUsuario(int id_usuario) {
+        if (id_usuario == -1) { 
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Mensaje del sistema");
+            alert.setHeaderText(null);
+            alert.setContentText("Por favor, seleccione un usuario antes de intentar eliminarlo.");
+            alert.showAndWait();
+            return;
+        }
+
         String queryCuentas = "DELETE FROM Cuentas WHERE id_usuario = ?";
         String queryUsuario = "DELETE FROM Usuarios WHERE id = ?";
-        
+
         try (PreparedStatement preparedStatementCuenta = connection.prepareStatement(queryCuentas);
-                PreparedStatement preparedStatementUsuario = connection.prepareStatement(queryUsuario)){
+                PreparedStatement preparedStatementUsuario = connection.prepareStatement(queryUsuario)) {
             preparedStatementCuenta.setInt(1, id_usuario);
-        
+
             int filasAfectadas = preparedStatementCuenta.executeUpdate();
-        
+
             if (filasAfectadas == 0) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Mensaje del sistema");
@@ -155,16 +164,15 @@ public class UsuarioModel {
             } else {
                 preparedStatementUsuario.setInt(1, id_usuario);
                 preparedStatementUsuario.executeUpdate();
-                
+
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Mensaje del sistema");
                 alert.setHeaderText(null);
-                alert.setContentText("Usuario eliminado con exito.");
+                alert.setContentText("Usuario eliminado con éxito.");
                 alert.showAndWait();
             }
         } catch (SQLException e) {
             System.out.println("Error al eliminar usuario: " + e.getMessage());
         }
-        
     }
 }

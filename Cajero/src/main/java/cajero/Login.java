@@ -47,6 +47,7 @@ public class Login implements Initializable {
     void login(ActionEvent event) throws Exception {
         if (txtNumCuenta.getText().isEmpty() || txtContrasenia.getText().isEmpty()) {
             gestorDeAlertas.mostrarAlerta("Error de validación", "Numero de Cuenta y Contraseña son requeridos.");
+            limpiarCamposLogin();
             return;
         }
         
@@ -54,6 +55,7 @@ public class Login implements Initializable {
             if (autenticador.autenticar(txtNumCuenta.getText(), txtContrasenia.getText())) {
                 String fxmlFile = autenticador.esAdmin(txtNumCuenta.getText(), txtContrasenia.getText()) ? "/cajero/Admin/adminUsuarios.fxml" : "/cajero/Usuario/usuarioMenu.fxml";
                 LoaderScene(fxmlFile);
+                
             } else {
                 gestorDeAlertas.mostrarAlerta("Mensaje del sistema", "Numero de Cuenta o Contraseña incorrecta");
                 limpiarCamposLogin();

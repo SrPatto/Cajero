@@ -15,13 +15,7 @@ import java.util.Random;
 import javafx.scene.control.Alert;
 
 public class AdminAgregarController {
-    private Connection connection;
-    private int id_usuario;
-    private String nombre;
-    private String num_cuenta;
-    private double dinero;
     private static final String DB = "CajeroDB.db";
-
 
     @FXML private Button btn_AgregarUsuario;
     @FXML private Button btn_CerrarVentanaAgregar;
@@ -37,21 +31,18 @@ public class AdminAgregarController {
         this.stageAgregarUsuario = stageAdminUsuarios;
     }
 
-    
     void setStage(Stage stageAgregarUsuario) {
         this.stageAgregarUsuario = stageAgregarUsuario;
     }
-    
-    private void insertarUsuario(Connection conn, String nombre, String num_cuenta, double dinero) {
-        String checkUsersQuery = "SELECT COUNT(*) AS count FROM Usuarios";
-        int numeroAleatorio = (int)(Math.random() * 10000) + 1;
-        String contrasenia = String.valueOf(numeroAleatorio);
-  
+
+    private void insertarUsuario(Connection conn, String nombre, String num_cuenta, double dinero) throws SQLException {
+        String contrasenia = generarContraseniaAleatoria();
+
         String insertarUsuarioQuery = "INSERT INTO Usuarios (num_cuenta, password, admin) VALUES (?, ?, ?)";
         String insertarCuentaQuery = "INSERT INTO Cuentas (num_cuenta, nombre, dinero, id_usuario) VALUES (?, ?, ?, ?)";
-                
+
         try (PreparedStatement pstmtUsuario = conn.prepareStatement(insertarUsuarioQuery, Statement.RETURN_GENERATED_KEYS);
-            PreparedStatement pstmtCuenta = conn.prepareStatement(insertarCuentaQuery)) {
+             PreparedStatement pstmtCuenta = conn.prepareStatement(insertarCuentaQuery)) {
 
             // Insertar Datos de Usuario
             pstmtUsuario.setString(1, num_cuenta);
@@ -71,16 +62,23 @@ public class AdminAgregarController {
                 pstmtCuenta.setInt(4, userId);
                 pstmtCuenta.executeUpdate();
             }
-            
-            
+        } catch (SQLException ex) {
+            throw ex;
         }
-        catch (Exception ex) {
-            System.err.println("Ocurrió un error: " + ex.getMessage());
-            ex.printStackTrace();
-        }
-        
     }
-    
+
+    private boolean verificarNumCuentaDuplicado(Connection conn, String num_cuenta) throws SQLException {
+        String consulta = "SELECT COUNT(*) FROM Usuarios WHERE num_cuenta = ?";
+        try (PreparedStatement pstmt = conn.prepareStatement(consulta)) {
+            pstmt.setString(1, num_cuenta);
+            ResultSet rs = pstmt.executeQuery();
+            if (rs.next()) {
+                return rs.getInt(1) > 0;
+            }
+        }
+        return false;
+    }
+
     @FXML
     void cerrarVentanaAgregar(ActionEvent event) {
         stageAgregarUsuario.close();  
@@ -91,69 +89,62 @@ public class AdminAgregarController {
         String NameUserStr = txtNombreUsuario.getText().trim();
         String NumCuentaStr = txtNumCuenta.getText().trim();
         String SaldoStr = txtSaldo.getText().trim();
-        
-        if (esNumeroValido(NameUserStr)) {
-            mostrarAlerta("Error de validación", "Ingrese un nombre válido para el usuario.");
-            txtNombreUsuario.clear();
-            txtNumCuenta.clear();
-            txtSaldo.clear();
+
+        if (!NombreValido(NameUserStr) || !NumeroValido(NumCuentaStr) || !SaldoValido(SaldoStr)) {
+            mostrarAlerta("Error de validación", "Ingrese datos válidos para todos los campos.");
+            limpiarCampos();
             return;
         }
-        
-        if (!esNumeroValido(NumCuentaStr) && !esNumeroValido(SaldoStr)) {
-            mostrarAlerta("Error de validación", "Ingrese un número de cuenta y un saldo válidos.");
-            txtNombreUsuario.clear();
+
+        if (NumCuentaStr.length() != 10) {
+            mostrarAlerta("Error de validación", "El número de cuenta debe tener exactamente 10 dígitos.");
             txtNumCuenta.clear();
-            txtSaldo.clear();
-            return;
-        } else if (!esNumeroValido(NumCuentaStr)) {
-            mostrarAlerta("Error de validación", "Ingrese un número de cuenta válido para el usuario.");
-            txtNombreUsuario.clear();
-            txtNumCuenta.clear();
-            txtSaldo.clear();
-            return;
-        } else if (!esNumeroValido(SaldoStr)) {
-            mostrarAlerta("Error de validación", "Ingrese un número válido para el saldo.");
-            txtNombreUsuario.clear();
-            txtNumCuenta.clear();
-            txtSaldo.clear();
             return;
         }
-        
-        
-        nombre = txtNombreUsuario.getText();
-        num_cuenta = txtNumCuenta.getText();
-        dinero = Integer.parseInt(txtSaldo.getText());
-        
-        try (Connection conn = DriverManager.getConnection("jdbc:sqlite:" + DB);
-             Statement stmt = conn.createStatement()) {
+
+        String nombre = txtNombreUsuario.getText();
+        String num_cuenta = txtNumCuenta.getText();
+        double dinero = Double.parseDouble(txtSaldo.getText());
+
+        try (Connection conn = DriverManager.getConnection("jdbc:sqlite:" + DB)) {
+            if (verificarNumCuentaDuplicado(conn, num_cuenta)) {
+                mostrarAlerta("Error de validación", "El número de cuenta ya existe. Ingrese un número de cuenta diferente.");
+                txtNumCuenta.clear();
+                return;
+            }
+
             insertarUsuario(conn, nombre, num_cuenta, dinero);
-            
+
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Mensaje del sistema");
             alert.setHeaderText(null);
-            alert.setContentText("Usuario ingresado con exito.");
+            alert.setContentText("Usuario ingresado con éxito.");
             alert.showAndWait();
-            
+
             stageAgregarUsuario.close();
         } catch (SQLException ex) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Mensaje del sistema");
             alert.setHeaderText(null);
             alert.setContentText("Error al ingresar usuario.");
-            System.out.println(ex.getMessage());
-            
-            limpiarCamposLogin();
+            alert.showAndWait();
+            System.out.println("Ocurrió un error: " + ex.getMessage());
+
+            limpiarCampos();
         }
     }
-    
-    void limpiarCamposLogin() {
+
+    void limpiarCampos() {
         txtNombreUsuario.clear();
         txtNumCuenta.clear();
         txtSaldo.clear();
     }
-    
-    private boolean esNumeroValido(String numero) {
+
+    private boolean NombreValido(String nombre) {
+        return nombre.matches("[a-zA-ZáéíóúÁÉÍÓÚñÑ\\s'\\-]+");
+    }
+
+    private boolean NumeroValido(String numero) {
         try {
             Double.parseDouble(numero);
             return true;
@@ -161,7 +152,21 @@ public class AdminAgregarController {
             return false;
         }
     }
-    
+
+    private boolean SaldoValido(String saldo) {
+        try {
+            double valor = Double.parseDouble(saldo);
+            return valor >= 0;
+        } catch (NumberFormatException e) {
+            return false;
+        }
+    }
+
+    private String generarContraseniaAleatoria() {
+        int numeroAleatorio = (int)(Math.random() * 10000) + 1;
+        return String.valueOf(numeroAleatorio);
+    }
+
     private void mostrarAlerta(String titulo, String contenido) {
         Alert alert = new Alert(Alert.AlertType.WARNING);
         alert.setTitle(titulo);

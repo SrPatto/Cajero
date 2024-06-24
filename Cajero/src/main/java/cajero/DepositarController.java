@@ -48,17 +48,18 @@ public class DepositarController {
     @FXML
     void Depositar(ActionEvent event) throws SQLException, Exception {
         String depositoStr = txtDeposito.getText().trim();
-        double deposito = Double.parseDouble(depositoStr);
 
         if (!esNumeroValido(depositoStr)) {
-            mostrarAlerta("Error de validación", "Ingrese un número válido para el depósito.");
             txtDeposito.clear();
+            mostrarAlerta("Error de validación", "Ingrese un número válido para el depósito.");
             return;
         }
 
+        double deposito = Double.parseDouble(depositoStr);
+
         if (deposito > 9000) {
-            mostrarAlerta("Error en el deposito", "Solo puedes depositar un máximo de $9,000 pesos.");
             txtDeposito.clear();
+            mostrarAlerta("Error en el deposito", "Solo puedes depositar un máximo de $9,000 pesos.");
             return;
         }
 

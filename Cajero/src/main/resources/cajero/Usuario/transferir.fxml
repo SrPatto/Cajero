@@ -39,7 +39,7 @@
                   <Font size="14.0" />
                </font>
             </Text>
-            <TextField fx:id="txtNumCuenta" layoutX="111.0" layoutY="81.0" promptText="No. Cuenta" />
+            <TextField fx:id="txtNumCuenta" editable="false" layoutX="111.0" layoutY="81.0" promptText="No. Cuenta" />
             <TextField fx:id="txtTransferencia" layoutX="111.0" layoutY="177.0" promptText="\$" />
             <Button fx:id="btn_Transferir" layoutX="126.0" layoutY="250.0" mnemonicParsing="false" onAction="#Transferir" prefHeight="39.0" prefWidth="119.0" text="Transferir" textFill="#22577a">
                <font>
@@ -58,8 +58,8 @@
             </Text>
             <TableView fx:id="tbl_Transferir" accessibleRole="IMAGE_VIEW" layoutX="75.0" layoutY="90.0" prefHeight="200.0" prefWidth="200.0">
               <columns>
-                <TableColumn prefWidth="100.0" text="Nombre" fx:id="colNombre" />
-                <TableColumn prefWidth="100.0" text="No. Cuenta" fx:id="colNoCuenta" />
+                <TableColumn fx:id="colNombre" prefWidth="100.0" text="Nombre" />
+                <TableColumn fx:id="colNoCuenta" prefWidth="100.0" text="No. Cuenta" />
               </columns>
             </TableView>
             <Button fx:id="btn_BackToUsuarioMenu" layoutX="14.0" layoutY="341.0" mnemonicParsing="false" onAction="#BackToUsuarioMenu" text="&lt;" textFill="#22577a">

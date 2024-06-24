@@ -50,17 +50,17 @@ public class RetirarController {
     @FXML
     void Retirar(ActionEvent event) throws SQLException, Exception {
         String retirarStr = txtRetirar.getText().trim();
-        double retiro = Double.parseDouble(retirarStr);
         
         if (!esNumeroValido(retirarStr)) {
-            mostrarAlerta("Error de validación", "Ingrese un número válido para el retiro.");
             txtRetirar.clear();
+            mostrarAlerta("Error de validación", "Ingrese un número válido para el retiro.");
             return;
         }
         
+        double retiro = Double.parseDouble(retirarStr);
+        
         if (retiro > saldo) {
             mostrarAlerta("Error", "No tienes suficientes fondos.");
-            txtRetirar.clear();
             return;
         }
         

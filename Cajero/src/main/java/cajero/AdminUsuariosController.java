@@ -16,6 +16,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -160,8 +161,20 @@ public class AdminUsuariosController implements Initializable {
 
     @FXML
     void eliminarUsuario(ActionEvent event) throws Exception {
-        
-        userLogged.eliminarUsuario(cuentaSeleccionada);
-        clientes.remove(cuentaSeleccionada); 
+        if (cuentaSeleccionada == null) {
+        mostrarAlerta("Eliminar Usuario", "Error", "Por favor, seleccione un usuario para eliminar.");
+        return;
+    }
+
+    userLogged.eliminarUsuario(cuentaSeleccionada);
+    clientes.remove(cuentaSeleccionada);
+    }
+    
+    private void mostrarAlerta(String titulo, String encabezado, String contenido) {
+    Alert alert = new Alert(Alert.AlertType.WARNING);
+    alert.setTitle(titulo);
+    alert.setHeaderText(encabezado);
+    alert.setContentText(contenido);
+    alert.showAndWait();
     }
 }
