@@ -70,7 +70,10 @@ public class DepositarController {
     
     private boolean esNumeroValido(String numero) {
         try {
-            Double.parseDouble(numero);
+            double valor = Double.parseDouble(numero);
+            if (valor < 0) {
+                return false;
+            }
             return true;
         } catch (NumberFormatException e) {
             return false;
