@@ -28,13 +28,14 @@ public class AdminUsuariosController implements Initializable {
     private Login loginController;
     private Connection connection;
     public UsuarioModel usuarioModel;
-    private Cliente userLogged;
+    private Admin userLogged;
     private Cuenta cuentaLogged;
     private int idUsuario;
     private String nombre;
     private String num_cuenta;
     private double saldo;
     private ObservableList<Cuenta> clientes;
+    private Cuenta cuentaSeleccionada;
     
 
     @FXML private Button btn_ActualizarTabla;
@@ -66,7 +67,7 @@ public class AdminUsuariosController implements Initializable {
         try {
             idUsuario = usuarioModel.getID_Usuario(txtNumCuenta);
             cuentaLogged = new Cuenta(idUsuario);
-            userLogged = new Cliente(txtNumCuenta, txtContrasenia, cuentaLogged);
+            userLogged = new Admin(txtNumCuenta, txtContrasenia, cuentaLogged);
         
         } catch (SQLException e) {
                 e.printStackTrace();
@@ -77,7 +78,7 @@ public class AdminUsuariosController implements Initializable {
         
         tbl_Usuarios.getSelectionModel().getSelectedItems().addListener((ListChangeListener<Cuenta>) c -> {
             if (c.getList().size() == 1) { 
-                Cuenta cuentaSeleccionada = c.getList().get(0);
+                cuentaSeleccionada = c.getList().get(0);
                 nombre = cuentaSeleccionada.getNombre();
                 num_cuenta = cuentaSeleccionada.getNum_cuenta();
                 saldo = cuentaSeleccionada.getDinero(); 
@@ -134,20 +135,13 @@ public class AdminUsuariosController implements Initializable {
         adminAgregarController.setStage(stageAgregarUsuario);
         stageAgregarUsuario.show();
     }
-
-    @FXML
-    void cerrarSesion(ActionEvent event) {
-        loginController.limpiarCamposLogin();
-        loginController.show();
-        stageAdminUsuarios.close();
-    }
-
+    
     @FXML
     void editarUsuario(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/cajero/Admin/adminEditar.fxml"));
         Parent root = loader.load();
         AdminEditarController adminEditarController = loader.getController();
-        adminEditarController.init(this, stageAdminUsuarios);
+        adminEditarController.init(this, stageAdminUsuarios, cuentaSeleccionada);
         Scene scene = new Scene(root);
         Stage stageEditarUsuario = new Stage();
         stageEditarUsuario.setScene(scene);
@@ -156,7 +150,18 @@ public class AdminUsuariosController implements Initializable {
     }
 
     @FXML
-    void eliminarUsuario(ActionEvent event) {
+    void cerrarSesion(ActionEvent event) {
+        loginController.limpiarCamposLogin();
+        loginController.show();
+        stageAdminUsuarios.close();
+    }
+
+    
+
+    @FXML
+    void eliminarUsuario(ActionEvent event) throws Exception {
         
+        userLogged.eliminarUsuario(cuentaSeleccionada);
+        clientes.remove(cuentaSeleccionada); 
     }
 }
