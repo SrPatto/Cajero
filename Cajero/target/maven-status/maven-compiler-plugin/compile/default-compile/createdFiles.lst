@@ -3,6 +3,7 @@ cajero\RetirarController.class
 cajero\DepositarController.class
 cajero\UsuarioMenuController.class
 cajero\Admin.class
+cajero\AdminAvisoEliminarController.class
 cajero\Login.class
 cajero\Cliente.class
 module-info.class
@@ -14,6 +15,7 @@ cajero\UsuarioModel.class
 cajero\Cuenta.class
 cajero\AdminEditarController.class
 cajero\SqliteConnection.class
+cajero\RetirarAvisoController.class
 cajero\App.class
 cajero\Autenticador.class
 cajero\AdminUsuariosController.class
