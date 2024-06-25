@@ -154,6 +154,9 @@ public class AdminUsuariosController implements Initializable {
             stageEditarUsuario.setScene(scene);
             adminEditarController.setStage(stageEditarUsuario);
             stageEditarUsuario.show();
+            
+            cuentaSeleccionada = null;
+            
         } catch (IOException e) {
             e.printStackTrace();
             mostrarAlerta("Editar Usuario", "Error", "No se pudo abrir la ventana de edición.");
@@ -170,16 +173,34 @@ public class AdminUsuariosController implements Initializable {
 
     
 
-    @FXML
-    void eliminarUsuario(ActionEvent event) throws Exception {
-        if (cuentaSeleccionada == null) {
+   @FXML
+void eliminarUsuario(ActionEvent event) {
+    if (cuentaSeleccionada == null) {
         mostrarAlerta("Eliminar Usuario", "Error", "Por favor, seleccione un usuario para eliminar.");
         return;
     }
 
-    userLogged.eliminarUsuario(cuentaSeleccionada);
-    clientes.remove(cuentaSeleccionada);
+    try {
+        System.out.println("Intentando eliminar el usuario...");
+        // Llamar al método para eliminar el usuario
+        userLogged.eliminarUsuario(cuentaSeleccionada);
+        System.out.println("Usuario eliminado de la base de datos.");
+        
+        // Eliminar el usuario de la lista de clientes
+        clientes.remove(cuentaSeleccionada);
+        System.out.println("Usuario eliminado de la lista de clientes.");
+       
+    } catch (Exception e) {
+        // Mostrar mensaje de error en caso de excepción
+        mostrarAlerta("Eliminar Usuario", "Error", "Ocurrió un error al eliminar el usuario.");
+        e.printStackTrace();
+    } finally {
+        cuentaSeleccionada = null; // Limpiar la selección en cualquier caso
+        
     }
+}
+
+
     
     private void mostrarAlerta(String titulo, String encabezado, String contenido) {
     Alert alert = new Alert(Alert.AlertType.WARNING);
