@@ -15,6 +15,7 @@ import java.util.Random;
 import javafx.scene.control.Alert;
 
 public class AdminAgregarController {
+    private String contrasenia;
     private static final String DB = "CajeroDB.db";
 
     @FXML private Button btn_AgregarUsuario;
@@ -36,7 +37,7 @@ public class AdminAgregarController {
     }
 
     private void insertarUsuario(Connection conn, String nombre, String num_cuenta, double dinero) throws SQLException {
-        String contrasenia = generarContraseniaAleatoria();
+        contrasenia = generarContraseniaAleatoria();
 
         String insertarUsuarioQuery = "INSERT INTO Usuarios (num_cuenta, password, admin) VALUES (?, ?, ?)";
         String insertarCuentaQuery = "INSERT INTO Cuentas (num_cuenta, nombre, dinero, id_usuario) VALUES (?, ?, ?, ?)";
@@ -118,7 +119,7 @@ public class AdminAgregarController {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Mensaje del sistema");
             alert.setHeaderText(null);
-            alert.setContentText("Usuario ingresado con éxito.");
+            alert.setContentText("Usuario ingresado con éxito.\n" + "No. Cuenta:" + num_cuenta + "\nContraseña: " + contrasenia);
             alert.showAndWait();
 
             stageAgregarUsuario.close();
