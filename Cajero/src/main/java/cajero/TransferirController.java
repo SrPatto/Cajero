@@ -137,7 +137,7 @@ public class TransferirController {
     private boolean esNumeroValido(String numero) {
         try {
             double valor = Double.parseDouble(numero);
-            if (valor < 0) {
+            if (valor <= 0) {
                 return false;
             }
             return true;
