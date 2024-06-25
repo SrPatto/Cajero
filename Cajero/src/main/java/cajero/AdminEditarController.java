@@ -35,38 +35,43 @@ public class AdminEditarController {
     }
     
     void init(AdminUsuariosController adminUsuariosController, Stage stageEditarUsuario, Cuenta cuentaEditar) {
-        this.adminUsuariosController = adminUsuariosController;
-        this.stageEditarUsuario = stageEditarUsuario;
+    this.adminUsuariosController = adminUsuariosController;
+    this.stageEditarUsuario = stageEditarUsuario;
 
-        // Inicializar la conexión a la base de datos
-        try {
-            conn = DriverManager.getConnection("jdbc:sqlite:" + DB);
-        } catch (SQLException ex) {
-            mostrarAlerta("Error de conexión", "No se pudo conectar a la base de datos.");
-            ex.printStackTrace();
-        }
+    try {
+        conn = DriverManager.getConnection("jdbc:sqlite:" + DB);
+    } catch (SQLException ex) {
+        mostrarAlerta("Error de conexión", "No se pudo conectar a la base de datos.");
+        ex.printStackTrace();
+        return; 
+    }
 
-        if (cuentaEditar == null) {
-            // Mostrar alerta de que no se ha seleccionado un usuario
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("Mensaje del sistema");
-            alert.setHeaderText(null);
-            alert.setContentText("Por favor seleccione un usuario para editar.");
-            alert.showAndWait();
-            return; 
-        }
+    if (cuentaEditar == null) {
+        // Mostrar alerta de que no se ha seleccionado un usuario
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle("Mensaje del sistema");
+        alert.setHeaderText(null);
+        alert.setContentText("Por favor seleccione un usuario para editar.");
+        alert.showAndWait();
         
-        this.nombre = cuentaEditar.getNombre();
-        this.num_cuenta = cuentaEditar.getNum_cuenta();
-        this.dinero = cuentaEditar.getDinero();
-        this.id_usuario = cuentaEditar.getId_usuario();
-
-        // Establecer los valores
-        txtNombreUsuario.setText(nombre);
-        txtNumCuenta.setText(num_cuenta);
-        txtSaldo.setText(String.valueOf(dinero));
+        // Cerrar la ventana de edición, si está abierta
+        if (stageEditarUsuario != null) {
+            stageEditarUsuario.close();
+        }
+        return; 
     }
     
+    this.nombre = cuentaEditar.getNombre();
+    this.num_cuenta = cuentaEditar.getNum_cuenta();
+    this.dinero = cuentaEditar.getDinero();
+    this.id_usuario = cuentaEditar.getId_usuario();
+
+    // Establecer los valores
+    txtNombreUsuario.setText(nombre);
+    txtNumCuenta.setText(num_cuenta);
+    txtSaldo.setText(String.valueOf(dinero));
+}
+
     private void editarUsuario(String nombre, String num_cuenta, double dinero, int id_usuario) throws SQLException {
         String editarUsuarioQuery = "UPDATE Usuarios SET num_cuenta = ? WHERE id = ?";
         String editarCuentaQuery = "UPDATE Cuentas SET num_cuenta = ?, nombre = ?, dinero = ? WHERE id_usuario = ?";
@@ -99,7 +104,7 @@ public class AdminEditarController {
 
     @FXML
     void editarUsuario(ActionEvent event) {
-        // Verificar si solo queda el administrador en la base de datos
+        // Verificar si solo queda el admin en la base de datos
         try {
             if (esAdmin() == 0) {
                 mostrarAlerta("No hay usuarios para editar", "No hay usuarios disponibles para editar.");

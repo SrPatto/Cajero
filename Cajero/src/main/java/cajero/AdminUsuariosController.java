@@ -138,17 +138,28 @@ public class AdminUsuariosController implements Initializable {
     }
     
     @FXML
-    void editarUsuario(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/cajero/Admin/adminEditar.fxml"));
-        Parent root = loader.load();
-        AdminEditarController adminEditarController = loader.getController();
-        adminEditarController.init(this, stageAdminUsuarios, cuentaSeleccionada);
-        Scene scene = new Scene(root);
-        Stage stageEditarUsuario = new Stage();
-        stageEditarUsuario.setScene(scene);
-        adminEditarController.setStage(stageEditarUsuario);
-        stageEditarUsuario.show();
+    void editarUsuario(ActionEvent event) {
+        if (cuentaSeleccionada == null) {
+            mostrarAlerta("Editar Usuario", "Error", "Por favor, seleccione un usuario para editar.");
+            return;
+        }
+
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/cajero/Admin/adminEditar.fxml"));
+            Parent root = loader.load();
+            AdminEditarController adminEditarController = loader.getController();
+            adminEditarController.init(this, stageAdminUsuarios, cuentaSeleccionada);
+            Scene scene = new Scene(root);
+            Stage stageEditarUsuario = new Stage();
+            stageEditarUsuario.setScene(scene);
+            adminEditarController.setStage(stageEditarUsuario);
+            stageEditarUsuario.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+            mostrarAlerta("Editar Usuario", "Error", "No se pudo abrir la ventana de edición.");
+        }
     }
+
 
     @FXML
     void cerrarSesion(ActionEvent event) {
